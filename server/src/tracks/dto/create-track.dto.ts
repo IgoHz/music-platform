@@ -1,7 +1,7 @@
 export class CreateTrackDTO {
-  declare name: string;
+  declare readonly name: string;
 
-  declare artist: string;
+  declare readonly artist: string;
 
-  declare text: string;
+  declare readonly text: string;
 }

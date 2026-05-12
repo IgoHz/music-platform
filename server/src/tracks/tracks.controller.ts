@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { TracksService } from './tracks.service';
 import { CreateTrackDTO } from './dto/create-track.dto';
+import type { ObjectId } from 'mongoose';
+import { CreateCommentDTO } from './dto/create-comment.dto';
 
 @Controller('tracks')
 export class TracksController {
@@ -17,12 +19,17 @@ export class TracksController {
   }
 
   @Get(':id')
-  async getTrackById(@Param('id') id: string) {
+  async getTrackById(@Param('id') id: ObjectId) {
     return await this.service.getTrackById(id);
   }
 
   @Delete(':id')
-  async deleteTrackById(@Param('id') id: string) {
+  async deleteTrackById(@Param('id') id: ObjectId) {
     return await this.service.deleteTrackById(id);
+  }
+
+  @Post('comment')
+  async createComment(@Body() createCommentDTO: CreateCommentDTO) {
+    return await this.service.createComment(createCommentDTO);
   }
 }
