@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors
 } from '@nestjs/common';
@@ -17,6 +18,25 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 @Controller('tracks')
 export class TracksController {
   constructor(private service: TracksService) {}
+
+  @Get()
+  async getAllTracks(
+    @Query('count') count: number,
+    @Query('offset') offset: number
+  ) {
+    return await this.service.getAllTracks(count, offset);
+  }
+
+  @Get('search')
+  async searchTracks(@Query('query') query: string) {
+    console.log('search controller');
+    return await this.service.searchTracks(query);
+  }
+
+  @Get(':id')
+  async getTrackById(@Param('id') id: ObjectId) {
+    return await this.service.getTrackById(id);
+  }
 
   @Post()
   @UseInterceptors(
@@ -37,23 +57,18 @@ export class TracksController {
     return await this.service.createTrack(createTrackDTO, picture[0], audio[0]);
   }
 
-  @Get()
-  async getAllTracks() {
-    return await this.service.getAllTracks();
+  @Post('comment')
+  async createComment(@Body() createCommentDTO: CreateCommentDTO) {
+    return await this.service.createComment(createCommentDTO);
   }
 
-  @Get(':id')
-  async getTrackById(@Param('id') id: ObjectId) {
-    return await this.service.getTrackById(id);
+  @Post('listens/:id')
+  async addListensById(@Param('id') id: ObjectId) {
+    await this.service.addListensById(id);
   }
 
   @Delete(':id')
   async deleteTrackById(@Param('id') id: ObjectId) {
     return await this.service.deleteTrackById(id);
-  }
-
-  @Post('comment')
-  async createComment(@Body() createCommentDTO: CreateCommentDTO) {
-    return await this.service.createComment(createCommentDTO);
   }
 }

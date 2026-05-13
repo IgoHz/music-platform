@@ -17,6 +17,23 @@ export class TracksService {
     private filesService: FilesService
   ) {}
 
+  async getAllTracks(count: number = 10, offset: number = 0) {
+    return this.trackRepository.find().skip(offset).limit(count);
+  }
+
+  async getTrackById(id: ObjectId) {
+    const foundTrack = this.trackRepository.findById(id).populate('comments');
+    return foundTrack;
+  }
+
+  async searchTracks(query: string) {
+    console.log('query: ', query);
+    const foundTracks = await this.trackRepository.find({
+      name: { $regex: new RegExp(query, 'i') }
+    });
+    return foundTracks;
+  }
+
   async createTrack(
     createTrackDTO: CreateTrackDTO,
     picture: Express.Multer.File,
@@ -36,20 +53,6 @@ export class TracksService {
     return createdTrack;
   }
 
-  async getAllTracks() {
-    return this.trackRepository.find();
-  }
-
-  async getTrackById(id: ObjectId) {
-    const foundTrack = this.trackRepository.findById(id).populate('comments');
-    return foundTrack;
-  }
-
-  async deleteTrackById(id: ObjectId) {
-    const deletedTrack = this.trackRepository.findByIdAndDelete(id);
-    return deletedTrack;
-  }
-
   async createComment(createCommentDTO: CreateCommentDTO) {
     const foundTrack = await this.trackRepository.findById(
       createCommentDTO.trackId
@@ -59,5 +62,18 @@ export class TracksService {
     foundTrack?.comments.push(createdComment._id);
     await foundTrack?.save();
     return createdComment;
+  }
+
+  async addListensById(id: ObjectId) {
+    const foundTrack = await this.trackRepository.findById(id);
+    if (foundTrack) {
+      foundTrack.listens += 1;
+      await foundTrack.save();
+    }
+  }
+
+  async deleteTrackById(id: ObjectId) {
+    const deletedTrack = this.trackRepository.findByIdAndDelete(id);
+    return deletedTrack;
   }
 }
