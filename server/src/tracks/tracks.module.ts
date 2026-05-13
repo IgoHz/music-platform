@@ -4,6 +4,7 @@ import { TracksService } from './tracks.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Track, TrackSchema } from './schemas/track.schema';
 import { Comment, CommentSchema } from './schemas/comment.schema';
+import { FilesService } from 'src/files/files.service';
 
 @Module({
   imports: [
@@ -13,6 +14,6 @@ import { Comment, CommentSchema } from './schemas/comment.schema';
     ])
   ],
   controllers: [TracksController],
-  providers: [TracksService]
+  providers: [TracksService, FilesService]
 })
 export class TracksModule {}

@@ -5,18 +5,33 @@ import { Model, type ObjectId } from 'mongoose';
 import { Comment, CommentDocument } from './schemas/comment.schema';
 import { CreateTrackDTO } from './dto/create-track.dto';
 import { CreateCommentDTO } from './dto/create-comment.dto';
+import { FilesService } from 'src/files/files.service';
+import { FileType } from 'src/files/files.constants';
 
 @Injectable()
 export class TracksService {
   constructor(
     @InjectModel(Track.name) private trackRepository: Model<TrackDocument>,
-    @InjectModel(Comment.name) private commentRepository: Model<CommentDocument>
+    @InjectModel(Comment.name)
+    private commentRepository: Model<CommentDocument>,
+    private filesService: FilesService
   ) {}
 
-  async createTrack(createTrackDTO: CreateTrackDTO) {
+  async createTrack(
+    createTrackDTO: CreateTrackDTO,
+    picture: Express.Multer.File,
+    audio: Express.Multer.File
+  ) {
+    const pictureMetaString = this.filesService.createFile(
+      FileType.PICTURE,
+      picture
+    );
+    const audioMetaString = this.filesService.createFile(FileType.AUDIO, audio);
     const createdTrack = await this.trackRepository.create({
       ...createTrackDTO,
-      listens: 0
+      listens: 0,
+      picture: pictureMetaString,
+      audio: audioMetaString
     });
     return createdTrack;
   }
