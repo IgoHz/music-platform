@@ -16,9 +16,6 @@ export class Track {
   declare text: string;
 
   @Prop()
-  declare track: string;
-
-  @Prop()
   declare listens: number;
 
   @Prop()
