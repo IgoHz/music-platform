@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import Image from 'next/image';
 import Link from 'next/link';
+import Header from '@/components/ui/header';
 
 interface Props {
   track: Track;
@@ -32,8 +33,8 @@ export default function TrackListItem({ track }: Props) {
           alt={`${track.name} track image`}
         />
         <div className="flex flex-col">
-          <span className="text-base">{track.name}</span>
-          <span className="text-sm">{track.artist}</span>
+          <Header type="h2">{track.name}</Header>
+          <span className="text-base">{track.artist}</span>
         </div>
       </div>
       <div className="flex items-center gap-4">

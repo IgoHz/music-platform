@@ -32,9 +32,7 @@ function Icon(props: Props): JSX.Element {
 }
 
 function playStrategy() {
-  return (
-    <path d="M5 3.5V12.5L11.5 8L5 3.5Z" />
-  );
+  return <path d="M5 3.5V12.5L11.5 8L5 3.5Z" />;
 }
 
 function pauseStrategy() {
@@ -79,22 +77,10 @@ function infoStrategy() {
       />
 
       {/* Dot */}
-      <rect
-        x="7.4"
-        y="4.5"
-        width="1.2"
-        height="1.2"
-        rx="0.15"
-      />
+      <rect x="7.4" y="4.5" width="1.2" height="1.2" rx="0.15" />
 
       {/* Stem */}
-      <rect
-        x="7.4"
-        y="6.4"
-        width="1.2"
-        height="4.2"
-        rx="0.15"
-      />
+      <rect x="7.4" y="6.4" width="1.2" height="4.2" rx="0.15" />
     </>
   );
 }

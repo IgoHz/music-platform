@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import CreateCommentForm from './track-details/create-comment-form';
 import Header from '@/components/ui/header';
+import CommentList from './track-details/comment-list';
 
 const trackMock: Track = {
   _id: 1,
@@ -13,12 +14,23 @@ const trackMock: Track = {
   listens: 0,
   picture: 'https://localhost:4000/',
   audio: 'audio',
-  comments: []
+  comments: [
+    {
+      _id: 1,
+      username: 'Commenter 1',
+      text: 'This is sick!'
+    },
+    {
+      _id: 2,
+      username: 'Commenter 2',
+      text: 'This is very sick!'
+    }
+  ]
 };
 
 export default function TrackDetails() {
   return (
-    <div className="flex flex-col justify-start gap-4">
+    <div className="flex flex-col justify-start gap-6">
       <Button className="w-fit" size="lg" variant="secondary">
         <Link className="text-sm" href="/tracks">
           Back to Tracks
@@ -45,6 +57,7 @@ export default function TrackDetails() {
         </article>
       </div>
       <CreateCommentForm />
+      <CommentList comments={trackMock.comments} />
     </div>
   );
 }

@@ -22,15 +22,15 @@ function Header(props: Props): JSX.Element {
 }
 
 function h1Strategy({ className, children }: ComponentProps<'h1'>) {
-  return <h1 className={`text-2xl ${className}`}>{children}</h1>;
+  return <h1 className={`text-2xl font-medium ${className}`}>{children}</h1>;
 }
 
 function h2Strategy({ className, children }: ComponentProps<'h2'>) {
-  return <h2 className={`text-xl ${className}`}>{children}</h2>;
+  return <h2 className={`text-xl font-medium ${className}`}>{children}</h2>;
 }
 
 function h3Strategy({ className, children }: ComponentProps<'h3'>) {
-  return <h3 className={`text-lg ${className}`}>{children}</h3>;
+  return <h3 className={`text-lg font-medium ${className}`}>{children}</h3>;
 }
 
 export default memo(Header);
