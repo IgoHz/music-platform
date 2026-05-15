@@ -7,9 +7,11 @@ export default function Tracks() {
   return (
     <>
       <div className="flex justify-between m-4">
-        <h2 className="text-lg">Track list</h2>
-        <Button>
-          <Link href="/tracks/create">Create</Link>
+        <h1 className="text-xl content-center">Track list</h1>
+        <Button size="lg">
+          <Link className="text-sm" href="/tracks/create">
+            Create
+          </Link>
         </Button>
       </div>
       <Separator />

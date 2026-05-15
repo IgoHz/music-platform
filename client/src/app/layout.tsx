@@ -42,7 +42,7 @@ export default function RootLayout({
       )}
     >
       <body className="h-screen h-svh grid grid-rows-[auto_1fr]">
-        <header>
+        <header className="flex justify-center p-1 mb-2 bg-gray-50">
           <Navigation />
         </header>
         {children}
