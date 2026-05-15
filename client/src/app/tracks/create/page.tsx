@@ -1,3 +1,5 @@
+import { TrackCreator } from '@/features/tracks';
+
 export default function CreateTrackPage() {
-  return <div>Create track page</div>;
+  return <TrackCreator />;
 }
