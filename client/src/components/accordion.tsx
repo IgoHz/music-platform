@@ -8,14 +8,16 @@ import {
 import { Button } from './ui/button';
 import {
   isHydratedSelector,
+  openedSectionIdSelector,
   sectionsSelector,
-  setSectionIsOpenSelector,
-  setSectionsSelector,
+  setOpenedSectionIdSelector,
+  initSectionsSelector,
   useAccordionSectionsStore
 } from '@/store/accordion-sections';
 import { JSX, useEffect, useEffectEvent } from 'react';
 import { Separator } from './ui/separator';
 import Header from './ui/header';
+import { AccordionSectionStatus } from '@/store/accordion-sections/store';
 
 export type AccordionConfig = Record<string, AccordionConfigItem>;
 
@@ -33,13 +35,13 @@ export function Accordion({ className, config }: AccordionProps) {
   const sections = useAccordionSectionsStore(sectionsSelector);
   const isHydrated = useAccordionSectionsStore(isHydratedSelector);
 
-  const setSections = useAccordionSectionsStore(setSectionsSelector);
+  const initSections = useAccordionSectionsStore(initSectionsSelector);
 
   const sectionKeys = Object.keys(sections);
   const sectionKeysLength = sectionKeys.length;
 
   const handleEffectEvent = useEffectEvent(() => {
-    setSections(Object.keys(config));
+    initSections(Object.keys(config));
   });
   useEffect(() => {
     if (isHydrated && !sectionKeysLength) {
@@ -59,7 +61,7 @@ export function Accordion({ className, config }: AccordionProps) {
           key={sectionKey}
           id={sectionKey}
           title={config[sectionKey].title}
-          isOpen={sections[sectionKey]}
+          status={sections[sectionKey]}
         >
           {config[sectionKey].component}
         </AccordionSection>
@@ -71,34 +73,45 @@ export function Accordion({ className, config }: AccordionProps) {
 interface AccordionSectionProps {
   id: string;
   title: string;
+  status: AccordionSectionStatus;
   children: JSX.Element;
-  isOpen: boolean;
 }
 
 function AccordionSection({
   id,
   title,
-  children,
-  isOpen
+  status,
+  children
 }: AccordionSectionProps) {
-  const setSectionIsOpen = useAccordionSectionsStore(setSectionIsOpenSelector);
+  const openedSectionId = useAccordionSectionsStore(openedSectionIdSelector);
+  const setOpenedSectionId = useAccordionSectionsStore(
+    setOpenedSectionIdSelector
+  );
+
+  const isOpen = id === openedSectionId;
+  const isInvalid = status === AccordionSectionStatus.INVALID;
+
+  function handleOpenChange(open: boolean) {
+    if (open) {
+      setOpenedSectionId(id);
+    }
+  }
 
   return (
     <Collapsible
       open={isOpen}
-      onOpenChange={(open: boolean) => setSectionIsOpen(id, open)}
+      disabled={!isOpen && isInvalid}
+      onOpenChange={handleOpenChange}
     >
       <div className="flex justify-end">
-      <CollapsibleTrigger className="my-2" asChild>
-        <Button variant="ghost" size="lg">
-          <Header type="h2">{title}</Header>
-        </Button>
-      </CollapsibleTrigger>
+        <CollapsibleTrigger className="my-2" asChild>
+          <Button variant="ghost" size="lg">
+            <Header type="h2">{title}</Header>
+          </Button>
+        </CollapsibleTrigger>
       </div>
       <Separator />
-      <CollapsibleContent className="m-2">
-        {children}
-      </CollapsibleContent>
+      <CollapsibleContent className="m-2">{children}</CollapsibleContent>
     </Collapsible>
   );
 }

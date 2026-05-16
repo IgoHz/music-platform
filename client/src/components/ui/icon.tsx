@@ -4,7 +4,10 @@ const iconStrategies = {
   play: playStrategy,
   pause: pauseStrategy,
   trash: trashStrategy,
-  info: infoStrategy
+  info: infoStrategy,
+  upload: uploadStrategy,
+  file: fileStrategy,
+  close: closeStrategy
 } as const;
 
 type IconName = keyof typeof iconStrategies;
@@ -81,6 +84,51 @@ function infoStrategy() {
 
       {/* Stem */}
       <rect x="7.4" y="6.4" width="1.2" height="4.2" rx="0.15" />
+    </>
+  );
+}
+
+function uploadStrategy() {
+  return (
+    <>
+      {/* Arrow stem */}
+      <rect x="7.15" y="3.2" width="1.7" height="6.4" rx="0.35" />
+
+      {/* Arrow head */}
+      <path d="M8 2L4.9 5.1L6.05 6.25L8 4.3L9.95 6.25L11.1 5.1L8 2Z" />
+
+      {/* Bottom tray */}
+      <path d="M3.2 10.2H4.9V11.5C4.9 11.72 5.08 11.9 5.3 11.9H10.7C10.92 11.9 11.1 11.72 11.1 11.5V10.2H12.8V11.9C12.8 12.5 12.3 13 11.7 13H4.3C3.7 13 3.2 12.5 3.2 11.9V10.2Z" />
+    </>
+  );
+}
+
+function fileStrategy() {
+  return (
+    <>
+      {/* Main file */}
+      <path d="M4.5 2.5H8.9L11.5 5.1V12.2C11.5 12.64 11.14 13 10.7 13H5.3C4.86 13 4.5 12.64 4.5 12.2V2.5Z" />
+
+      {/* Folded corner */}
+      <path
+        d="M8.9 2.5V4.5C8.9 4.83 9.17 5.1 9.5 5.1H11.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+      />
+
+      {/* Inner lines */}
+      <rect x="6" y="7" width="4" height="0.9" rx="0.2" />
+      <rect x="6" y="9" width="3.1" height="0.9" rx="0.2" />
+    </>
+  );
+}
+
+function closeStrategy() {
+  return (
+    <>
+      <path d="M5.15 4L4 5.15L6.85 8L4 10.85L5.15 12L8 9.15L10.85 12L12 10.85L9.15 8L12 5.15L10.85 4L8 6.85L5.15 4Z" />
     </>
   );
 }

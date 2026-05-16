@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import {
   Field,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldLegend,
@@ -16,15 +17,16 @@ import { z } from 'zod';
 
 const formSchema = z.object({
   username: z.string().min(2, 'Name must be at least 2 characters!'),
-  text: z.string().min(4, 'Comment must be at least 4 characters ling!')
+  text: z.string().min(4, 'Comment must be at least 4 characters long!')
 });
 
 type FormData = z.output<typeof formSchema>;
 
 export default function CreateCommentForm() {
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, formState, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   });
+  const { errors } = formState;
 
   function handleSubmitCallback(formData: FormData) {
     console.log('formData: ', formData);
@@ -40,10 +42,12 @@ export default function CreateCommentForm() {
           <Field>
             <FieldLabel htmlFor="username">Username</FieldLabel>
             <Input {...register('username')} />
+            <FieldError>{errors.username?.message}</FieldError>
           </Field>
           <Field>
             <FieldLabel htmlFor="text">Text</FieldLabel>
             <Input {...register('text')} />
+            <FieldError>{errors.text?.message}</FieldError>
           </Field>
         </FieldSet>
         <Field orientation="horizontal">

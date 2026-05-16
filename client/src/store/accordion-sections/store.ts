@@ -3,40 +3,64 @@ import { devtools, persist } from 'zustand/middleware';
 
 export interface State {
   sections: Sections;
+  openedSectionId: string;
   isRehydrated: boolean;
 
-  setSections: (sectionIds: string[]) => void;
-  setSectionIsOpen: (id: string, isOpen: boolean) => void;
+  initSections: (sectionIds: string[]) => void;
+  setOpenedSectionId: (id: string) => void;
+  setSectionStatus: (id: string, status: AccordionSectionStatus) => void;
   setRehydrated: (rehydrated: boolean) => void;
 }
 
-type Sections = Record<string, boolean>;
+type Sections = Record<string, AccordionSectionStatus>;
+
+export enum AccordionSectionStatus {
+  VALID = 'valid',
+  INVALID = 'invalid'
+}
 
 const useAccordionSectionsStore = create<State>()(
   devtools(
     persist(
       (set, get) => ({
         sections: {},
+        openedSectionId: '',
         isRehydrated: false,
 
-        setSections: (sectionIds: string[]) => {
+        initSections: (sectionIds: string[]) => {
           const sections: Sections = {};
           sectionIds.forEach((id) => {
-            sections[id] = false;
+            sections[id] = AccordionSectionStatus.INVALID;
           });
-          set({ sections }, undefined, 'accordionSections/set-sections');
+          set(
+            {
+              sections,
+              openedSectionId: sectionIds[0]
+            },
+            undefined,
+            'accordionSections/set-sections'
+          );
         },
-        setSectionIsOpen: (id: string, isOpen: boolean) => {
+        setOpenedSectionId: (id: string) => {
+          set(
+            {
+              openedSectionId: id
+            },
+            undefined,
+            'accordionSections/set-opened-section-id'
+          );
+        },
+        setSectionStatus: (id: string, status: AccordionSectionStatus) => {
           const sections = get().sections;
           set(
             {
               sections: {
                 ...sections,
-                [id]: isOpen
+                [id]: status
               }
             },
             undefined,
-            'accordionSections/set-section-is-open'
+            'accordionSections/set-section-status'
           );
         },
         setRehydrated: (rehydrated) => set({ isRehydrated: rehydrated })
@@ -44,7 +68,8 @@ const useAccordionSectionsStore = create<State>()(
       {
         name: 'accordion-sections',
         partialize: (state) => ({
-          sections: state.sections
+          sections: state.sections,
+          openedSectionId: state.openedSectionId
         }),
         onRehydrateStorage: () => (state) => {
           state?.setRehydrated(true); // set rehydrated to true when persistence is complete
