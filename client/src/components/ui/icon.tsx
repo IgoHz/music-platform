@@ -7,7 +7,8 @@ const iconStrategies = {
   info: infoStrategy,
   upload: uploadStrategy,
   file: fileStrategy,
-  close: closeStrategy
+  close: closeStrategy,
+  volume: volumeStrategy,
 } as const;
 
 type IconName = keyof typeof iconStrategies;
@@ -129,6 +130,33 @@ function closeStrategy() {
   return (
     <>
       <path d="M5.15 4L4 5.15L6.85 8L4 10.85L5.15 12L8 9.15L10.85 12L12 10.85L9.15 8L12 5.15L10.85 4L8 6.85L5.15 4Z" />
+    </>
+  );
+}
+
+function volumeStrategy() {
+  return (
+    <>
+      {/* Speaker body */}
+      <path d="M3 6.2H5.2L8.2 3.8V12.2L5.2 9.8H3V6.2Z" />
+
+      {/* Sound wave */}
+      <path
+        d="M10 6C10.8 6.5 11.2 7.2 11.2 8C11.2 8.8 10.8 9.5 10 10"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="square"
+      />
+
+      {/* Outer sound wave */}
+      <path
+        d="M11.7 4.8C13 5.7 13.7 6.8 13.7 8C13.7 9.2 13 10.3 11.7 11.2"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="square"
+      />
     </>
   );
 }

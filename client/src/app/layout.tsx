@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import Navigation from '@/components/navigation';
+import { TrackPlayer } from '@/features/tracks';
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
@@ -42,10 +43,9 @@ export default function RootLayout({
       )}
     >
       <body className="h-screen h-svh grid grid-rows-[auto_1fr]">
-        <header className="flex justify-center p-1 mb-2 bg-gray-50">
-          <Navigation />
-        </header>
+        <Navigation />
         {children}
+        <TrackPlayer />
       </body>
     </html>
   );

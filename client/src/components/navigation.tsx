@@ -23,19 +23,21 @@ const components: { title: string; href: string }[] = [
 
 export default function NavigationMenuDemo() {
   return (
-    <NavigationMenu>
-      <NavigationMenuList>
-        {components.map(({ title, href }) => (
-          <NavigationMenuItem key={title}>
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <Link href={href}>{title}</Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-        ))}
-      </NavigationMenuList>
-    </NavigationMenu>
+    <header className="sticky top-0 flex justify-center p-1 mb-2 bg-gray-50">
+      <NavigationMenu>
+        <NavigationMenuList>
+          {components.map(({ title, href }) => (
+            <NavigationMenuItem key={title}>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href={href}>{title}</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+    </header>
   );
 }
