@@ -12,7 +12,7 @@ const trackMock: Track = {
   artist: 'Artist 1',
   text: 'Text 1',
   listens: 0,
-  picture: 'https://localhost:4000/',
+  picture: 'http://localhost:4000/',
   audio: 'audio',
   comments: [
     {

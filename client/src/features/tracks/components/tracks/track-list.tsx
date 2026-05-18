@@ -8,8 +8,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 1',
     text: 'Text 1',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -18,8 +20,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 2',
     text: 'Text 2',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -28,8 +32,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 3',
     text: 'Text 3',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -38,8 +44,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 4',
     text: 'Text 4',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -48,8 +56,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 5',
     text: 'Text 5',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -58,8 +68,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 6',
     text: 'Text 6',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -68,8 +80,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 7',
     text: 'Text 7',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -78,8 +92,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 8',
     text: 'Text 8',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   },
   {
@@ -88,8 +104,10 @@ const tracksMock: Track[] = [
     artist: 'Artist 9',
     text: 'Text 9',
     listens: 0,
-    picture: 'https://localhost:4000/',
-    audio: 'audio',
+    picture:
+      'http://localhost:4000/picture/92cfb37f-0439-4a33-b481-8e54036b4dc8.jpg',
+    audio:
+      'http://localhost:4000/audio/4596a0be-8117-45d7-a01f-bf3268ca776d.mp3',
     comments: []
   }
 ];

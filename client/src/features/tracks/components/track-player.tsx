@@ -1,31 +1,109 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Track } from '../types';
-import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import Image from 'next/image';
 import TrackProgress from './track-player/track-progress';
 import Volume from './track-player/volume';
+import {
+  playerStatusSelector,
+  playerTrackDurationSelector,
+  playerTrackProgressSelector,
+  playerTrackSelector,
+  playerVolumeSelector,
+  setPlayerStatusSelector,
+  setPlayerTrackDurationSelector,
+  setPlayerTrackProgressSelector,
+  setPlayerVolumeSelector,
+  useTrackPlayerStore
+} from '../store/track-player';
+import { PlayerStatus } from '../store/track-player/store';
+import { useEffect, useEffectEvent } from 'react';
+import { assertValue } from '@/lib/assert';
 
-const track: Track = {
-  _id: 1,
-  name: 'Track 1',
-  artist: 'Artist 1',
-  text: 'Text 1',
-  listens: 0,
-  picture: 'https://localhost:4000/',
-  audio: 'audio',
-  comments: []
-};
+let audio: HTMLAudioElement | undefined;
 
 export default function TrackPlayer() {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [trackProgress, setTrackProgress] = useState<Array<number>>([0]);
-  const [volume, setVolume] = useState<Array<number>>([0]);
+  const playerTrack = useTrackPlayerStore(playerTrackSelector);
+  const playerStatus = useTrackPlayerStore(playerStatusSelector);
+  const playerTrackDuration = useTrackPlayerStore(playerTrackDurationSelector);
+  const playerTrackProgress = useTrackPlayerStore(playerTrackProgressSelector);
+  const playerVolume = useTrackPlayerStore(playerVolumeSelector);
+
+  const setPlayerStatus = useTrackPlayerStore(setPlayerStatusSelector);
+  const setPlayerTrackDuration = useTrackPlayerStore(
+    setPlayerTrackDurationSelector
+  );
+  const setPlayerTrackProgress = useTrackPlayerStore(
+    setPlayerTrackProgressSelector
+  );
+  const setPlayerVolume = useTrackPlayerStore(setPlayerVolumeSelector);
+
+  useEffect(() => {
+    if (!audio) {
+      audio = new Audio();
+    }
+  }, []);
+
+  const handleSetAudioEffectEvent = useEffectEvent(() => {
+    if (!playerTrack) {
+      return;
+    }
+    assertValue(audio, 'audio');
+    audio.src = playerTrack.audio;
+    audio.volume = playerVolume / 100;
+    audio.onloadedmetadata = () => {
+      assertValue(audio, 'audio');
+      setPlayerTrackDuration(audio.duration);
+    };
+    audio.ontimeupdate = () => {
+      assertValue(audio, 'audio');
+      setPlayerTrackProgress(audio.currentTime);
+    };
+  });
+  useEffect(() => {
+    handleSetAudioEffectEvent();
+  }, [playerTrack]);
+
+  const isPlaying = playerStatus === PlayerStatus.PLAY;
+
+  useEffect(() => {
+    if (!playerTrack) {
+      return;
+    }
+    if (isPlaying) {
+      audio?.play();
+      return;
+    }
+    audio?.pause();
+  }, [playerTrack, isPlaying]);
+
+  if (!playerTrack) {
+    return null;
+  }
 
   function handlePlayPauseClick() {
-    setIsPlaying(!isPlaying);
+    if (isPlaying) {
+      setPlayerStatus(PlayerStatus.PAUSE);
+      return;
+    }
+    setPlayerStatus(PlayerStatus.PLAY);
+  }
+
+  function handleTrackProgressChange(progressData: number[]) {
+    const [progress] = progressData;
+
+    assertValue(audio, 'audio');
+    audio.currentTime = progress;
+    setPlayerTrackProgress(progress);
+  }
+
+  function handleVolumeChange(volumeData: number[]) {
+    const [volume] = volumeData;
+
+    assertValue(audio, 'audio');
+    audio.volume = volume / 100;
+    setPlayerVolume(volume);
   }
 
   return (
@@ -37,19 +115,19 @@ export default function TrackPlayer() {
         className="max-h-16"
         width="64"
         height="64"
-        src={track.picture}
-        alt={`${track.name} track image`}
+        src={playerTrack.picture}
+        alt={`${playerTrack.name} track image`}
       />
       <div className="flex flex-col min-w-max">
-        <span className="text-base bold">{track.artist}</span>
-        <span className="text-sm">{track.artist}</span>
+        <span className="text-base bold">{playerTrack.artist}</span>
+        <span className="text-sm">{playerTrack.artist}</span>
       </div>
       <TrackProgress
-        length={100}
-        progress={trackProgress}
-        onChange={setTrackProgress}
+        duration={playerTrackDuration}
+        progress={[playerTrackProgress]}
+        onChange={handleTrackProgressChange}
       />
-      <Volume volume={volume} onChange={setVolume} />
+      <Volume volume={[playerVolume]} onChange={handleVolumeChange} />
     </footer>
   );
 }

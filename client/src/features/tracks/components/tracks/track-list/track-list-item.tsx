@@ -2,28 +2,54 @@
 
 import { Button } from '@/components/ui/button';
 import { Track } from '../../../types';
-import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/ui/header';
+import {
+  playerStatusSelector,
+  playerTrackSelector,
+  setPlayerStatusSelector,
+  setPlayerTrackSelector,
+  useTrackPlayerStore
+} from '@/features/tracks/store/track-player';
+import { PlayerStatus } from '@/features/tracks/store/track-player/store';
 
 interface Props {
   track: Track;
 }
 
 export default function TrackListItem({ track }: Props) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const playerTrack = useTrackPlayerStore(playerTrackSelector);
+  const playerStatus = useTrackPlayerStore(playerStatusSelector);
+
+  const setPlayerTrack = useTrackPlayerStore(setPlayerTrackSelector);
+  const setPlayerStatus = useTrackPlayerStore(setPlayerStatusSelector);
+
+  const isActiveTrack = playerTrack?._id === track._id;
+  const isPlaying = playerStatus === PlayerStatus.PLAY;
+  const isActiveTrackPlaying = isActiveTrack && isPlaying;
 
   function handlePlayPauseClick() {
-    setIsPlaying(!isPlaying);
+    if (!isActiveTrack) {
+      setPlayerTrack(track);
+    }
+
+    if (playerStatus === PlayerStatus.PAUSE) {
+      setPlayerStatus(PlayerStatus.PLAY);
+    } else if (isActiveTrackPlaying) {
+      setPlayerStatus(PlayerStatus.PAUSE);
+    }
   }
 
   return (
     <li className="flex justify-between not-first:mt-4">
       <div className="flex justify-start items-center gap-4">
         <Button size="icon-xl" variant="ghost" onClick={handlePlayPauseClick}>
-          <Icon iconName={isPlaying ? 'pause' : 'play'} className="size-10" />
+          <Icon
+            iconName={isActiveTrackPlaying ? 'pause' : 'play'}
+            className="size-10"
+          />
         </Button>
         <Image
           className="bg-gray-50"

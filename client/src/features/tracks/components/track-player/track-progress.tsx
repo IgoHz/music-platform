@@ -2,21 +2,21 @@ import { Slider } from '@/components/ui/slider';
 import { formatSecondsToTime } from '@/lib/time';
 
 interface Props {
-  length: number;
+  duration: number;
   progress: number[];
   onChange: (value: number[]) => void;
 }
 
-export default function TrackProgress({ length, progress, onChange }: Props) {
+export default function TrackProgress({ duration, progress, onChange }: Props) {
   const formattedProgress = formatSecondsToTime(progress[0]);
-  const formattedLength = formatSecondsToTime(length);
+  const formattedLength = formatSecondsToTime(duration);
 
   return (
     <div className="flex gap-4">
       <Slider
         className="min-w-48"
         min={0}
-        max={length}
+        max={duration}
         value={progress}
         onValueChange={onChange}
       />

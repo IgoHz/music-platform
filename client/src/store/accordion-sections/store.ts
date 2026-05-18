@@ -38,7 +38,7 @@ const useAccordionSectionsStore = create<State>()(
               openedSectionId: sectionIds[0]
             },
             undefined,
-            'accordionSections/set-sections'
+            'accordion-sections/set-sections'
           );
         },
         setOpenedSectionId: (id: string) => {
@@ -47,7 +47,7 @@ const useAccordionSectionsStore = create<State>()(
               openedSectionId: id
             },
             undefined,
-            'accordionSections/set-opened-section-id'
+            'accordion-sections/set-opened-section-id'
           );
         },
         setSectionStatus: (id: string, status: AccordionSectionStatus) => {
@@ -60,7 +60,7 @@ const useAccordionSectionsStore = create<State>()(
               }
             },
             undefined,
-            'accordionSections/set-section-status'
+            'accordion-sections/set-section-status'
           );
         },
         setRehydrated: (rehydrated) => set({ isRehydrated: rehydrated })

@@ -29,7 +29,6 @@ export class TracksController {
 
   @Get('search')
   async searchTracks(@Query('query') query: string) {
-    console.log('search controller');
     return await this.service.searchTracks(query);
   }
 

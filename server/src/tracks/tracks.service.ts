@@ -27,7 +27,6 @@ export class TracksService {
   }
 
   async searchTracks(query: string) {
-    console.log('query: ', query);
     const foundTracks = await this.trackRepository.find({
       name: { $regex: new RegExp(query, 'i') }
     });

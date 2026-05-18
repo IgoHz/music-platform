@@ -11,7 +11,7 @@ const MAX_VOLUME = 100;
 export default function Volume({ volume, onChange }: Props) {
   return (
     <div className="flex gap-4 w-full justify-end">
-      <Icon iconName='volume' className='size-6' />
+      <Icon iconName="volume" className="size-6" />
       <Slider
         className="w-24"
         min={0}
@@ -19,7 +19,7 @@ export default function Volume({ volume, onChange }: Props) {
         value={volume}
         onValueChange={onChange}
       />
-      <span className='w-[9ch] text-end'>
+      <span className="w-[9ch] text-end">
         {volume}&nbsp;/&nbsp;{MAX_VOLUME}
       </span>
     </div>

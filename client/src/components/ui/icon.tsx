@@ -8,7 +8,7 @@ const iconStrategies = {
   upload: uploadStrategy,
   file: fileStrategy,
   close: closeStrategy,
-  volume: volumeStrategy,
+  volume: volumeStrategy
 } as const;
 
 type IconName = keyof typeof iconStrategies;
