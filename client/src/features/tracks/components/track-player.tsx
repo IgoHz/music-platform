@@ -20,6 +20,7 @@ import {
 import { PlayerStatus } from '../store/track-player/store';
 import { useEffect, useEffectEvent } from 'react';
 import { assertValue } from '@/lib/assert';
+import { formatStaticResourcePath } from '@/lib/static';
 
 let audio: HTMLAudioElement | undefined;
 
@@ -50,7 +51,7 @@ export default function TrackPlayer() {
       return;
     }
     assertValue(audio, 'audio');
-    audio.src = playerTrack.audio;
+    audio.src = formatStaticResourcePath(playerTrack.audio);
     audio.volume = playerVolume / 100;
     audio.onloadedmetadata = () => {
       assertValue(audio, 'audio');
@@ -115,7 +116,7 @@ export default function TrackPlayer() {
         className="max-h-16"
         width="64"
         height="64"
-        src={playerTrack.picture}
+        src={formatStaticResourcePath(playerTrack.picture)}
         alt={`${playerTrack.name} track image`}
       />
       <div className="flex flex-col min-w-max">

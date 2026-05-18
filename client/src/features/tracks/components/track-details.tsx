@@ -5,6 +5,7 @@ import Link from 'next/link';
 import CreateCommentForm from './track-details/create-comment-form';
 import Header from '@/components/ui/header';
 import CommentList from './track-details/comment-list';
+import { formatStaticResourcePath } from '@/lib/static';
 
 const trackMock: Track = {
   _id: 1,
@@ -41,7 +42,7 @@ export default function TrackDetails() {
           className="bg-gray-50"
           width="256"
           height="256"
-          src={trackMock.picture}
+          src={formatStaticResourcePath(trackMock.picture)}
           alt={`${trackMock.name} track image`}
         />
         <div className="flex flex-col gap-2">

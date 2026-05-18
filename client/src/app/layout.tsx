@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import Navigation from '@/components/navigation';
 import { TrackPlayer } from '@/features/tracks';
+import QueryProvider from '@/providers/query-provider';
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
@@ -44,7 +45,7 @@ export default function RootLayout({
     >
       <body className="h-screen h-svh grid grid-rows-[auto_1fr]">
         <Navigation />
-        {children}
+        <QueryProvider>{children}</QueryProvider>
         <TrackPlayer />
       </body>
     </html>

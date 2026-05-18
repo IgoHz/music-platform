@@ -14,6 +14,7 @@ import {
   useTrackPlayerStore
 } from '@/features/tracks/store/track-player';
 import { PlayerStatus } from '@/features/tracks/store/track-player/store';
+import { formatStaticResourcePath } from '@/lib/static';
 
 interface Props {
   track: Track;
@@ -55,7 +56,7 @@ export default function TrackListItem({ track }: Props) {
           className="bg-gray-50"
           width="96"
           height="96"
-          src={track.picture}
+          src={formatStaticResourcePath(track.picture)}
           alt={`${track.name} track image`}
         />
         <div className="flex flex-col">
