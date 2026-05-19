@@ -1,5 +1,13 @@
 import { TrackDetails } from '@/features/tracks';
 
-export default function TrackDetailsPage() {
-  return <TrackDetails />;
+interface Props {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export default async function TrackDetailsPage({ params }: Props) {
+  const { id } = await params;
+
+  return <TrackDetails id={id} />;
 }

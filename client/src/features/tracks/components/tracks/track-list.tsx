@@ -11,6 +11,7 @@ export default function TrackList() {
   }
 
   if (isLoading) {
+    // TODO: Provide proper skeleton
     return <div>Loading...</div>;
   }
 

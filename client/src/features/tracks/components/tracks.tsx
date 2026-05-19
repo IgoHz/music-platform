@@ -11,13 +11,12 @@ import {
 import { getTracks } from '@/features/tracks/api';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
 
-const queryClient = new QueryClient();
-
 export default async function Tracks() {
+  const queryClient = new QueryClient();
+
   await queryClient.prefetchQuery({
     queryKey: [TRACKS_CACHE_KEY],
-    queryFn: getTracks,
-    retry: 1
+    queryFn: getTracks
   });
 
   return (

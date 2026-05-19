@@ -14,6 +14,18 @@ export async function getTracks() {
   }
 }
 
+export async function getTrackById(id: string) {
+  try {
+    const response = await api.get<unknown, AxiosResponse<Track>>(
+      `/tracks/${id}`
+    );
+    return response.data;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export async function createTrack(formData: FormData) {
   try {
     const response = await api.post<unknown, AxiosResponse<Track>>(

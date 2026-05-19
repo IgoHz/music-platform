@@ -1,5 +1,5 @@
 import Header from '@/components/ui/header';
-import { Comment } from '../../types';
+import { Comment } from '../../../types';
 import CommentListItem from './comment-list/comment-list-item';
 
 interface Props {
