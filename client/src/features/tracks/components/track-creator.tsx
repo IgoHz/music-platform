@@ -3,6 +3,7 @@ import Header from '@/components/ui/header';
 import BaseDataForm from './track-creator/base-data-form';
 import PictureUploadForm from './track-creator/picture-upload-form';
 import AudioUploadForm from './track-creator/audio-upload-form';
+import Controls from './track-creator/controls';
 
 const accordionConfig: AccordionConfig = {
   baseData: {
@@ -21,9 +22,10 @@ const accordionConfig: AccordionConfig = {
 
 export default function TrackCreator() {
   return (
-    <div>
+    <>
       <Header type="h1">Create Track:</Header>
       <Accordion className="mt-2" config={accordionConfig} />
-    </div>
+      <Controls className="mt-4" />
+    </>
   );
 }

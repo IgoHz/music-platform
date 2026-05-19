@@ -1,15 +1,10 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import TrackListItem from './track-list/track-list-item';
-import { TRACKS_CACHE_KEY } from '../../constants/cache-keys';
-import { getTracks } from '../../api';
+import useTracksQuery from '../../hooks/useTracksQuery';
 
 export default function TrackList() {
-  const { data: tracks, isLoading } = useQuery({
-    queryKey: [TRACKS_CACHE_KEY],
-    queryFn: getTracks
-  });
+  const { data: tracks, isLoading } = useTracksQuery();
 
   if (!tracks) {
     return null;

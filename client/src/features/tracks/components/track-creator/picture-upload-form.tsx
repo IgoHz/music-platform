@@ -4,14 +4,19 @@ import { FileUploadField } from '@/components/file-upload';
 import { Button } from '@/components/ui/button';
 import { Field, FieldGroup, FieldSet } from '@/components/ui/field';
 import {
-  setOpenedSectionIdSelector,
-  setSectionStatusSelector,
+  setAccordionOpenedSectionIdSelector,
+  setAccordionSectionStatusSelector,
   useAccordionSectionsStore
 } from '@/store/accordion-sections';
 import { AccordionSectionStatus } from '@/store/accordion-sections/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import {
+  setTrackCreatorPictureSelector,
+  trackCreatorPictureSelector,
+  useTrackCreatorStore
+} from '../../store/track-creator';
 
 const formSchema = z.object({
   picture: z.instanceof(File)
@@ -25,18 +30,31 @@ interface Props {
 }
 
 export default function PictureUploadForm({ sectionId, nextSectionId }: Props) {
+  const trackCreatorPicture = useTrackCreatorStore(trackCreatorPictureSelector);
+
+  const setTrackCreatorPicture = useTrackCreatorStore(
+    setTrackCreatorPictureSelector
+  );
+
   const { control, formState, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    values: trackCreatorPicture
+      ? {
+          picture: trackCreatorPicture
+        }
+      : undefined
   });
   const { isValid, errors } = formState;
 
   const setOpenedSectionId = useAccordionSectionsStore(
-    setOpenedSectionIdSelector
+    setAccordionOpenedSectionIdSelector
   );
-  const setSectionStatus = useAccordionSectionsStore(setSectionStatusSelector);
+  const setSectionStatus = useAccordionSectionsStore(
+    setAccordionSectionStatusSelector
+  );
 
   function handleSubmitCallback(formData: FormData) {
-    console.log('formData: ', formData);
+    setTrackCreatorPicture(formData.picture);
 
     setOpenedSectionId(nextSectionId);
     setSectionStatus(sectionId, AccordionSectionStatus.VALID);

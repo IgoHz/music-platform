@@ -7,11 +7,11 @@ import {
 } from './ui/collapsible';
 import { Button } from './ui/button';
 import {
-  isHydratedSelector,
-  openedSectionIdSelector,
-  sectionsSelector,
-  setOpenedSectionIdSelector,
-  initSectionsSelector,
+  accordionIsHydratedSelector,
+  accordionOpenedSectionIdSelector,
+  accordionSectionsSelector,
+  setAccordionOpenedSectionIdSelector,
+  initAccordionSectionsSelector,
   useAccordionSectionsStore
 } from '@/store/accordion-sections';
 import { JSX, useEffect, useEffectEvent } from 'react';
@@ -27,15 +27,15 @@ interface AccordionConfigItem {
 }
 
 interface AccordionProps {
-  className: string;
   config: AccordionConfig;
+  className?: string;
 }
 
-export function Accordion({ className, config }: AccordionProps) {
-  const sections = useAccordionSectionsStore(sectionsSelector);
-  const isHydrated = useAccordionSectionsStore(isHydratedSelector);
+export function Accordion({ config, className }: AccordionProps) {
+  const sections = useAccordionSectionsStore(accordionSectionsSelector);
+  const isHydrated = useAccordionSectionsStore(accordionIsHydratedSelector);
 
-  const initSections = useAccordionSectionsStore(initSectionsSelector);
+  const initSections = useAccordionSectionsStore(initAccordionSectionsSelector);
 
   const sectionKeys = Object.keys(sections);
   const sectionKeysLength = sectionKeys.length;
@@ -83,9 +83,11 @@ function AccordionSection({
   status,
   children
 }: AccordionSectionProps) {
-  const openedSectionId = useAccordionSectionsStore(openedSectionIdSelector);
+  const openedSectionId = useAccordionSectionsStore(
+    accordionOpenedSectionIdSelector
+  );
   const setOpenedSectionId = useAccordionSectionsStore(
-    setOpenedSectionIdSelector
+    setAccordionOpenedSectionIdSelector
   );
 
   const isOpen = id === openedSectionId;

@@ -13,3 +13,16 @@ export async function getTracks() {
     throw e;
   }
 }
+
+export async function createTrack(formData: FormData) {
+  try {
+    const response = await api.post<unknown, AxiosResponse<Track>>(
+      '/tracks',
+      formData
+    );
+    return response.data;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}

@@ -4,14 +4,19 @@ import { FileUploadField } from '@/components/file-upload';
 import { Button } from '@/components/ui/button';
 import { Field, FieldGroup, FieldSet } from '@/components/ui/field';
 import {
-  setOpenedSectionIdSelector,
-  setSectionStatusSelector,
+  setAccordionOpenedSectionIdSelector,
+  setAccordionSectionStatusSelector,
   useAccordionSectionsStore
 } from '@/store/accordion-sections';
 import { AccordionSectionStatus } from '@/store/accordion-sections/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import {
+  setTrackCreatorAudioSelector,
+  trackCreatorAudioSelector,
+  useTrackCreatorStore
+} from '../../store/track-creator';
 
 const formSchema = z.object({
   audio: z.instanceof(File)
@@ -25,18 +30,31 @@ interface Props {
 }
 
 export default function AudioUploadForm({ sectionId, nextSectionId }: Props) {
+  const trackCreatorAudio = useTrackCreatorStore(trackCreatorAudioSelector);
+
+  const setTrackCreatorAudio = useTrackCreatorStore(
+    setTrackCreatorAudioSelector
+  );
+
   const { control, formState, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    values: trackCreatorAudio
+      ? {
+          audio: trackCreatorAudio
+        }
+      : undefined
   });
   const { isValid, errors } = formState;
 
   const setOpenedSectionId = useAccordionSectionsStore(
-    setOpenedSectionIdSelector
+    setAccordionOpenedSectionIdSelector
   );
-  const setSectionStatus = useAccordionSectionsStore(setSectionStatusSelector);
+  const setSectionStatus = useAccordionSectionsStore(
+    setAccordionSectionStatusSelector
+  );
 
-  function handleSubmitCallback(formData: FormData) {
-    console.log('formData: ', formData);
+  async function handleSubmitCallback(formData: FormData) {
+    setTrackCreatorAudio(formData.audio);
 
     setOpenedSectionId(nextSectionId);
     setSectionStatus(sectionId, AccordionSectionStatus.VALID);

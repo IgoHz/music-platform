@@ -9,6 +9,7 @@ export interface State {
   initSections: (sectionIds: string[]) => void;
   setOpenedSectionId: (id: string) => void;
   setSectionStatus: (id: string, status: AccordionSectionStatus) => void;
+  resetStore: () => void;
   setRehydrated: (rehydrated: boolean) => void;
 }
 
@@ -22,7 +23,7 @@ export enum AccordionSectionStatus {
 const useAccordionSectionsStore = create<State>()(
   devtools(
     persist(
-      (set, get) => ({
+      (set, get, store) => ({
         sections: {},
         openedSectionId: '',
         isRehydrated: false,
@@ -62,6 +63,12 @@ const useAccordionSectionsStore = create<State>()(
             undefined,
             'accordion-sections/set-section-status'
           );
+        },
+        resetStore: () => {
+          set({
+            ...store.getInitialState(),
+            isRehydrated: true
+          });
         },
         setRehydrated: (rehydrated) => set({ isRehydrated: rehydrated })
       }),

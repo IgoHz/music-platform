@@ -11,14 +11,21 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import {
-  setOpenedSectionIdSelector,
-  setSectionStatusSelector,
+  setAccordionOpenedSectionIdSelector,
+  setAccordionSectionStatusSelector,
   useAccordionSectionsStore
 } from '@/store/accordion-sections';
 import { AccordionSectionStatus } from '@/store/accordion-sections/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import {
+  setTrackCreatorBaseDataSelector,
+  trackCreatorArtistSelector,
+  trackCreatorNameSelector,
+  trackCreatorTextSelector,
+  useTrackCreatorStore
+} from '../../store/track-creator';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Track Name must be at least 2 characters!'),
@@ -34,18 +41,33 @@ interface Props {
 }
 
 export default function BaseDataForm({ sectionId, nextSectionId }: Props) {
+  const trackCreatorName = useTrackCreatorStore(trackCreatorNameSelector);
+  const trackCreatorArtist = useTrackCreatorStore(trackCreatorArtistSelector);
+  const trackCreatorText = useTrackCreatorStore(trackCreatorTextSelector);
+
+  const setTrackCreatorBaseData = useTrackCreatorStore(
+    setTrackCreatorBaseDataSelector
+  );
+
   const { register, formState, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(formSchema)
+    resolver: zodResolver(formSchema),
+    values: {
+      name: trackCreatorName,
+      artist: trackCreatorArtist,
+      text: trackCreatorText
+    }
   });
   const { errors } = formState;
 
   const setOpenedSectionId = useAccordionSectionsStore(
-    setOpenedSectionIdSelector
+    setAccordionOpenedSectionIdSelector
   );
-  const setSectionStatus = useAccordionSectionsStore(setSectionStatusSelector);
+  const setSectionStatus = useAccordionSectionsStore(
+    setAccordionSectionStatusSelector
+  );
 
   function handleSubmitCallback(formData: FormData) {
-    console.log('formData: ', formData);
+    setTrackCreatorBaseData(formData);
 
     setOpenedSectionId(nextSectionId);
     setSectionStatus(sectionId, AccordionSectionStatus.VALID);

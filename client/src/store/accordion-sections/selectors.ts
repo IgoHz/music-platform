@@ -1,11 +1,15 @@
 import { State } from './store';
 
-export const sectionsSelector = (state: State) => state.sections;
-export const openedSectionIdSelector = (state: State) => state.openedSectionId;
-export const isHydratedSelector = (state: State) => state.isRehydrated;
+export const accordionSectionsSelector = (state: State) => state.sections;
+export const accordionOpenedSectionIdSelector = (state: State) =>
+  state.openedSectionId;
+export const accordionIsHydratedSelector = (state: State) => state.isRehydrated;
 
-export const initSectionsSelector = (state: State) => state.initSections;
-export const setOpenedSectionIdSelector = (state: State) =>
+export const initAccordionSectionsSelector = (state: State) =>
+  state.initSections;
+export const setAccordionOpenedSectionIdSelector = (state: State) =>
   state.setOpenedSectionId;
-export const setSectionStatusSelector = (state: State) =>
+export const setAccordionSectionStatusSelector = (state: State) =>
   state.setSectionStatus;
+export const resetAccordionSectionsStoreSelector = (state: State) =>
+  state.resetStore;
