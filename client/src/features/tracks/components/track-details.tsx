@@ -18,7 +18,8 @@ export default async function TrackDetails({ id }: Props) {
 
   await queryClient.prefetchQuery({
     queryKey: [TRACKS_CACHE_KEY, id],
-    queryFn: () => getTrackById(id)
+    queryFn: () => getTrackById(id),
+    staleTime: 60 * 1000
   });
 
   return (
@@ -29,7 +30,7 @@ export default async function TrackDetails({ id }: Props) {
         </Link>
       </Button>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <MainDetails />
+        <MainDetails id={id} />
       </HydrationBoundary>
     </div>
   );

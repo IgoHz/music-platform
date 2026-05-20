@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/field';
 import Header from '@/components/ui/header';
 import { Input } from '@/components/ui/input';
+import useCreateCommentMutation from '@/features/tracks/hooks/useCreateCommentMutation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -22,14 +23,23 @@ const formSchema = z.object({
 
 type FormData = z.output<typeof formSchema>;
 
-export default function CreateCommentForm() {
+interface Props {
+  id: string;
+}
+
+export default function CreateCommentForm({ id }: Props) {
   const { register, formState, handleSubmit } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   });
   const { errors } = formState;
 
-  function handleSubmitCallback(formData: FormData) {
-    console.log('formData: ', formData);
+  const createCommentMutation = useCreateCommentMutation(id);
+
+  async function handleSubmitCallback(formData: FormData) {
+    await createCommentMutation.mutateAsync({
+      ...formData,
+      trackId: id,
+    });
   }
 
   return (

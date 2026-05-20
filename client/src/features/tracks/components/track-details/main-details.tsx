@@ -6,12 +6,12 @@ import Image from 'next/image';
 import CreateCommentForm from './main-details/create-comment-form';
 import CommentList from './main-details/comment-list';
 import useTrackByIdQuery from '../../hooks/useTrackByIdQuery';
-import { useParams } from 'next/navigation';
 
-export default function MainDetails() {
-  const params = useParams<{ id: string }>();
-  const { id } = params;
+interface Props {
+  id: string;
+}
 
+export default function MainDetails({ id }: Props) {
   const { data: track, isLoading } = useTrackByIdQuery(id);
 
   if (!track) {
@@ -45,7 +45,7 @@ export default function MainDetails() {
           <p className="text-lg">{track.text}</p>
         </article>
       </div>
-      <CreateCommentForm />
+      <CreateCommentForm id={id} />
       {!!track.comments.length && <CommentList comments={track.comments} />}
     </>
   );

@@ -5,6 +5,7 @@ import { getTracks } from '../api';
 export default function useTracksQuery() {
   return useQuery({
     queryKey: [TRACKS_CACHE_KEY],
-    queryFn: getTracks
+    queryFn: getTracks,
+    staleTime: 60 * 1000
   });
 }

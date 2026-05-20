@@ -5,6 +5,7 @@ import { getTrackById } from '../api/tracks';
 export default function useTrackByIdQuery(id: string) {
   return useQuery({
     queryKey: [TRACKS_CACHE_KEY, id],
-    queryFn: () => getTrackById(id)
+    queryFn: () => getTrackById(id),
+    staleTime: 60 * 1000
   });
 }
