@@ -11,30 +11,28 @@ export default function useCreateCommentMutation(id: string) {
     mutationFn: createComment,
     onMutate: (body) => {
       queryClient.cancelQueries({ queryKey: [TRACKS_CACHE_KEY, id] });
-      const prevTrackCopy = queryClient.getQueryData<Track>([TRACKS_CACHE_KEY, id]);
+      const prevTrackCopy = queryClient.getQueryData<Track>([
+        TRACKS_CACHE_KEY,
+        id
+      ]);
       queryClient.setQueryData([TRACKS_CACHE_KEY, id], (prevTrack: Track) => ({
         ...prevTrack,
-        comments: [...prevTrack.comments, { ...body, _id: prevTrack.comments.length.toString() }]
+        comments: [
+          ...prevTrack.comments,
+          { ...body, _id: prevTrack.comments.length.toString() }
+        ]
       }));
 
       return prevTrackCopy;
     },
-    onSuccess: (
-      createdComment,
-      _,
-      prevTrack: Track | undefined
-    ) => {
+    onSuccess: (createdComment, _, prevTrack: Track | undefined) => {
       if (!prevTrack) return;
       queryClient.setQueryData([TRACKS_CACHE_KEY, id], () => ({
         ...prevTrack,
         comments: [...prevTrack.comments, createdComment]
       }));
     },
-    onError: (
-      _,
-      __,
-      prevTrack: Track | undefined
-    ) => {
+    onError: (_, __, prevTrack: Track | undefined) => {
       console.error('Error creating comment!');
       queryClient.setQueryData([TRACKS_CACHE_KEY, id], () => prevTrack);
     }

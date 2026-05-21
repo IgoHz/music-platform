@@ -8,13 +8,13 @@ interface Props {
 
 export default function CommentList({ comments }: Props) {
   return (
-    <article>
+    <section>
       <Header type="h2">Comments:</Header>
       <ul className="my-4">
         {comments.map((comment) => (
           <CommentListItem key={comment._id} comment={comment} />
         ))}
       </ul>
-    </article>
+    </section>
   );
 }

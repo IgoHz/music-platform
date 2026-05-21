@@ -38,7 +38,7 @@ export default function CreateCommentForm({ id }: Props) {
   async function handleSubmitCallback(formData: FormData) {
     await createCommentMutation.mutateAsync({
       ...formData,
-      trackId: id,
+      trackId: id
     });
   }
 

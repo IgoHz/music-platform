@@ -7,7 +7,7 @@ interface Props {
 export default function CommentListItem({ comment }: Props) {
   return (
     <li className="flex flex-col not-first:mt-4">
-      <legend className="text-lg">{comment.username}</legend>
+      <span className="text-lg">{comment.username}</span>
       <p className="mt-1">{comment.text}</p>
     </li>
   );

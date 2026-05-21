@@ -59,7 +59,25 @@ export async function createComment(body: CreateCommentBody) {
     );
 
     const queryClient = new QueryClient();
-    queryClient.invalidateQueries({ queryKey: [TRACKS_CACHE_KEY, body.trackId] });
+    queryClient.invalidateQueries({
+      queryKey: [TRACKS_CACHE_KEY, body.trackId]
+    });
+
+    return response.data;
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
+export async function deleteTrackById(id: string) {
+  try {
+    const response = await api.delete<unknown, AxiosResponse<Track>>(
+      `/tracks/${id}`
+    );
+
+    const queryClient = new QueryClient();
+    queryClient.invalidateQueries({ queryKey: [TRACKS_CACHE_KEY] });
 
     return response.data;
   } catch (e) {

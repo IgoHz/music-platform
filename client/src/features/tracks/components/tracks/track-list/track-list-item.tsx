@@ -15,6 +15,7 @@ import {
 } from '@/features/tracks/store/track-player';
 import { PlayerStatus } from '@/features/tracks/store/track-player/store';
 import { formatStaticResourcePath } from '@/lib/static';
+import useDeleteTrackByIdMutation from '../../../hooks/useDeleteTrackByIdMutation';
 
 interface Props {
   track: Track;
@@ -41,6 +42,12 @@ export default function TrackListItem({ track }: Props) {
     } else if (isActiveTrackPlaying) {
       setPlayerStatus(PlayerStatus.PAUSE);
     }
+  }
+
+  const deleteTrackMutation = useDeleteTrackByIdMutation();
+
+  function handleDeleteTrackClick() {
+    deleteTrackMutation.mutate(track._id);
   }
 
   return (
@@ -70,7 +77,7 @@ export default function TrackListItem({ track }: Props) {
             <Icon iconName="info" className="size-6" />
           </Link>
         </Button>
-        <Button size="icon" variant="ghost">
+        <Button size="icon" variant="ghost" onClick={handleDeleteTrackClick}>
           <Icon iconName="trash" className="size-6" />
         </Button>
       </div>
