@@ -6,10 +6,17 @@ import { AxiosResponse } from 'axios';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
 import { QueryClient } from '@tanstack/react-query';
 
-export async function getTracks() {
+interface GetTracksParams {
+  query?: string;
+}
+
+export async function getTracks(params?: GetTracksParams) {
   try {
     const response = await api.get<unknown, AxiosResponse<Array<Track>>>(
-      '/tracks'
+      '/tracks',
+      {
+        params
+      }
     );
     return response.data;
   } catch (e) {

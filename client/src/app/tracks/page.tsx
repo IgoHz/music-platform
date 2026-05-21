@@ -1,5 +1,10 @@
 import { Tracks } from '@/features/tracks';
 
-export default function TracksPage() {
-  return <Tracks />;
+interface Props {
+  searchParams: Promise<{ query?: string }>;
+}
+
+export default async function TracksPage({ searchParams }: Props) {
+  const { query } = await searchParams;
+  return <Tracks query={query} />;
 }

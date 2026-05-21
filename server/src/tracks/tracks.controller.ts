@@ -22,14 +22,10 @@ export class TracksController {
   @Get()
   async getAllTracks(
     @Query('count') count: number,
-    @Query('offset') offset: number
+    @Query('offset') offset: number,
+    @Query('query') query: string
   ) {
-    return await this.service.getAllTracks(count, offset);
-  }
-
-  @Get('search')
-  async searchTracks(@Query('query') query: string) {
-    return await this.service.searchTracks(query);
+    return await this.service.getAllTracks(count, offset, query);
   }
 
   @Get(':id')

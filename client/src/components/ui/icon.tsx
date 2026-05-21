@@ -8,7 +8,8 @@ const iconStrategies = {
   upload: uploadStrategy,
   file: fileStrategy,
   close: closeStrategy,
-  volume: volumeStrategy
+  volume: volumeStrategy,
+  search: searchStrategy
 } as const;
 
 type IconName = keyof typeof iconStrategies;
@@ -155,6 +156,31 @@ function volumeStrategy() {
         fill="none"
         stroke="currentColor"
         strokeWidth="1.2"
+        strokeLinecap="square"
+      />
+    </>
+  );
+}
+
+function searchStrategy() {
+  return (
+    <>
+      {/* Lens */}
+      <circle
+        cx="7"
+        cy="7"
+        r="3.8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.3"
+      />
+
+      {/* Handle */}
+      <path
+        d="M9.8 9.8L12.8 12.8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.3"
         strokeLinecap="square"
       />
     </>

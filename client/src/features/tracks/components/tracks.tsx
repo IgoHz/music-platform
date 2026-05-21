@@ -10,13 +10,18 @@ import {
 } from '@tanstack/react-query';
 import { getTracks } from '@/features/tracks/api';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
+import TrackSearch from './tracks/track-search';
 
-export default async function Tracks() {
+interface Props {
+  query?: string;
+}
+
+export default async function Tracks({ query }: Props) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [TRACKS_CACHE_KEY],
-    queryFn: getTracks
+    queryFn: () => getTracks({ query })
   });
 
   return (
@@ -25,6 +30,7 @@ export default async function Tracks() {
         <Header className="content-center" type="h1">
           Tracks
         </Header>
+        <TrackSearch />
         <Button size="lg">
           <Link className="text-sm" href="/tracks/create">
             Create

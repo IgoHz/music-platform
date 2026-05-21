@@ -2,9 +2,13 @@
 
 import TrackListItem from './track-list/track-list-item';
 import useTracksQuery from '../../hooks/useTracksQuery';
+import { useSearchParams } from 'next/navigation';
 
 export default function TrackList() {
-  const { data: tracks, isLoading } = useTracksQuery();
+  const searchParams = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+
+  const { data: tracks, isLoading } = useTracksQuery(query);
 
   if (!tracks) {
     return null;
