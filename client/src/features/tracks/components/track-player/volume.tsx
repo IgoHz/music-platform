@@ -10,10 +10,10 @@ const MAX_VOLUME = 100;
 
 export default function Volume({ volume, onChange }: Props) {
   return (
-    <div className="flex gap-4 w-full justify-end">
+    <div className="flex gap-4 justify-end">
       <Icon iconName="volume" className="size-6" />
       <Slider
-        className="w-24"
+        className="w-16"
         min={0}
         max={MAX_VOLUME}
         value={volume}

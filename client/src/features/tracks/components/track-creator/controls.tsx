@@ -57,16 +57,10 @@ export default function Controls({ className }: Props) {
     formData.append('artist', trackCreatorArtist);
     formData.append('text', trackCreatorText);
     if (trackCreatorPicture) {
-      formData.append(
-        'picture',
-        new Blob([trackCreatorPicture], { type: trackCreatorPicture.type })
-      );
+      formData.append('picture', trackCreatorPicture);
     }
     if (trackCreatorAudio) {
-      formData.append(
-        'audio',
-        new Blob([trackCreatorAudio], { type: trackCreatorAudio.type })
-      );
+      formData.append('audio', trackCreatorAudio);
     }
 
     await createTrackMutation.mutateAsync(formData);

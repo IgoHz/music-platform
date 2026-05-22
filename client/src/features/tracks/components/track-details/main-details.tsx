@@ -1,11 +1,10 @@
 'use client';
 
 import Header from '@/components/ui/header';
-import { formatStaticResourcePath } from '@/lib/static';
-import Image from 'next/image';
 import CreateCommentForm from './main-details/create-comment-form';
 import CommentList from './main-details/comment-list';
 import useTrackByIdQuery from '../../hooks/useTrackByIdQuery';
+import ServerImage from '@/components/server-image';
 
 interface Props {
   id: string;
@@ -26,11 +25,10 @@ export default function MainDetails({ id }: Props) {
   return (
     <>
       <div className="flex flex-nowrap gap-4">
-        <Image
-          className="bg-gray-50"
-          width="256"
-          height="256"
-          src={formatStaticResourcePath(track.picture)}
+        <ServerImage
+          width={256}
+          height={256}
+          src={track.picture}
           alt={`${track.name} track image`}
         />
         <div className="flex flex-col gap-2">

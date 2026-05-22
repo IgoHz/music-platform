@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { Track } from '../../../types';
 import Icon from '@/components/ui/icon';
-import Image from 'next/image';
 import Link from 'next/link';
 import Header from '@/components/ui/header';
 import {
@@ -14,8 +13,8 @@ import {
   useTrackPlayerStore
 } from '@/features/tracks/store/track-player';
 import { PlayerStatus } from '@/features/tracks/store/track-player/store';
-import { formatStaticResourcePath } from '@/lib/static';
 import useDeleteTrackByIdMutation from '../../../hooks/useDeleteTrackByIdMutation';
+import ServerImage from '@/components/server-image';
 
 interface Props {
   track: Track;
@@ -59,11 +58,10 @@ export default function TrackListItem({ track }: Props) {
             className="size-10"
           />
         </Button>
-        <Image
-          className="bg-gray-50"
-          width="96"
-          height="96"
-          src={formatStaticResourcePath(track.picture)}
+        <ServerImage
+          width={96}
+          height={96}
+          src={track.picture}
           alt={`${track.name} track image`}
         />
         <div className="flex flex-col">

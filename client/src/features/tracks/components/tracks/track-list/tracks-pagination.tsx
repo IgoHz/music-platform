@@ -26,6 +26,10 @@ export default function TracksPagination({
 }: Props) {
   const { updateQuery } = useUpdateQuery();
 
+  if (!pages) {
+    return null;
+  }
+
   const pagesArray = Array.from({ length: pages }, (_, i) => i + 1);
   const currentIndex = pagesArray.indexOf(currentPage);
   const visiblePages = pagesArray.slice(

@@ -12,9 +12,9 @@ export default function TrackProgress({ duration, progress, onChange }: Props) {
   const formattedLength = formatSecondsToTime(duration);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 w-full">
       <Slider
-        className="min-w-48"
+        className="max-w-48"
         min={0}
         max={duration}
         value={progress}

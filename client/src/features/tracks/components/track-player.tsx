@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import Image from 'next/image';
 import TrackProgress from './track-player/track-progress';
 import Volume from './track-player/volume';
 import {
@@ -21,6 +20,7 @@ import { PlayerStatus } from '../store/track-player/store';
 import { useEffect, useEffectEvent } from 'react';
 import { assertValue } from '@/lib/assert';
 import { formatStaticResourcePath } from '@/lib/static';
+import ServerImage from '@/components/server-image';
 
 let audio: HTMLAudioElement | undefined;
 
@@ -108,19 +108,19 @@ export default function TrackPlayer() {
   }
 
   return (
-    <footer className="sticky bottom-0 flex justify-start items-center gap-8 min-h-16 px-4 mt-2 bg-gray-50">
+    <footer className="sticky bottom-0 flex justify-between items-center gap-8 min-h-16 px-4 mt-2 bg-gray-50">
       <Button size="icon-xl" variant="ghost" onClick={handlePlayPauseClick}>
         <Icon iconName={isPlaying ? 'pause' : 'play'} className="size-10" />
       </Button>
-      <Image
+      <ServerImage
         className="max-h-16"
-        width="64"
-        height="64"
-        src={formatStaticResourcePath(playerTrack.picture)}
+        width={64}
+        height={64}
+        src={playerTrack.picture}
         alt={`${playerTrack.name} track image`}
       />
       <div className="flex flex-col min-w-max">
-        <span className="text-base bold">{playerTrack.artist}</span>
+        <span className="text-base bold">{playerTrack.name}</span>
         <span className="text-sm">{playerTrack.artist}</span>
       </div>
       <TrackProgress

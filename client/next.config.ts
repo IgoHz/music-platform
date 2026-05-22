@@ -9,6 +9,12 @@ const nextConfig: NextConfig = {
         port: '4000',
         pathname: '/**', // Matches all image paths on this host
       },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '4000',
+        pathname: '/**',
+      },
     ],
   },
   experimental: {
