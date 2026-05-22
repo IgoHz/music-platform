@@ -1,9 +1,7 @@
-import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { NavigationMenu as NavigationMenuPrimitive } from 'radix-ui';
-
 import { cn } from '@/lib/utils';
-import { CaretDownIcon } from '@phosphor-icons/react';
+import Icon from './icon';
 
 function NavigationMenu({
   className,
@@ -74,7 +72,8 @@ function NavigationMenuTrigger({
       {...props}
     >
       {children}{' '}
-      <CaretDownIcon
+      <Icon
+        iconName="chevronDown"
         className="relative top-px ml-1 size-3 transition duration-300 group-data-popup-open/navigation-menu-trigger:rotate-180 group-data-open/navigation-menu-trigger:rotate-180"
         aria-hidden="true"
       />

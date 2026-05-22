@@ -9,7 +9,11 @@ const iconStrategies = {
   file: fileStrategy,
   close: closeStrategy,
   volume: volumeStrategy,
-  search: searchStrategy
+  search: searchStrategy,
+  chevronLeft: chevronLeftStrategy,
+  chevronRight: chevronRightStrategy,
+  ellipsis: ellipsisStrategy,
+  chevronDown: chevronDownStrategy
 } as const;
 
 type IconName = keyof typeof iconStrategies;
@@ -184,6 +188,55 @@ function searchStrategy() {
         strokeLinecap="square"
       />
     </>
+  );
+}
+
+function chevronLeftStrategy() {
+  return (
+    <path
+      d="M9.9 3.2L5.4 8L9.9 12.8"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
+    />
+  );
+}
+
+function chevronRightStrategy() {
+  return (
+    <path
+      d="M6.1 3.2L10.6 8L6.1 12.8"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
+    />
+  );
+}
+
+function ellipsisStrategy() {
+  return (
+    <>
+      <rect x="3" y="7" width="2" height="2" rx="0.35" />
+      <rect x="7" y="7" width="2" height="2" rx="0.35" />
+      <rect x="11" y="7" width="2" height="2" rx="0.35" />
+    </>
+  );
+}
+
+function chevronDownStrategy() {
+  return (
+    <path
+      d="M3.2 5.9L8 10.4L12.8 5.9"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
+    />
   );
 }
 

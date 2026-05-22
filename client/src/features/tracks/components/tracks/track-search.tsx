@@ -1,27 +1,18 @@
 'use client';
 
 import { SearchField } from '@/components/search-field';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useEffectEvent, useRef, useState } from 'react';
+import { useUpdateQuery } from '@/hooks/useUpdateQuery';
 
 export default function TrackSearch() {
-  const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [searchQuery, setSearchQuery] = useState(
     searchParams.get('query') ?? ''
   );
 
-  const updateQuery = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
-    router.push(`${pathname}?${params.toString()}`);
-  };
+  const { updateQuery } = useUpdateQuery();
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const updateQueryEffectEvent = useEffectEvent(() => {

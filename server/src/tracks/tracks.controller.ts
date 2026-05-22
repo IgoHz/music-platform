@@ -20,12 +20,12 @@ export class TracksController {
   constructor(private service: TracksService) {}
 
   @Get()
-  async getAllTracks(
+  async getTracks(
     @Query('count') count: number,
     @Query('offset') offset: number,
     @Query('query') query: string
   ) {
-    return await this.service.getAllTracks(count, offset, query);
+    return await this.service.getTracks(count, offset, query);
   }
 
   @Get(':id')

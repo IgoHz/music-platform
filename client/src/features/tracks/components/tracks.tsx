@@ -14,14 +14,15 @@ import TrackSearch from './tracks/track-search';
 
 interface Props {
   query?: string;
+  offset?: string;
 }
 
-export default async function Tracks({ query }: Props) {
+export default async function Tracks({ query, offset }: Props) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [TRACKS_CACHE_KEY],
-    queryFn: () => getTracks({ query })
+    queryFn: () => getTracks({ query, offset })
   });
 
   return (

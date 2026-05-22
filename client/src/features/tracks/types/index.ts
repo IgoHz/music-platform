@@ -1,3 +1,10 @@
+export interface TracksData {
+  tracks: Track[];
+  pages: number;
+  currentPage: number;
+}
+
+// models
 export interface Track {
   _id: string;
   name: string;

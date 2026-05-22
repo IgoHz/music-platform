@@ -17,12 +17,18 @@ export class TracksService {
     private filesService: FilesService
   ) {}
 
-  async getAllTracks(count: number = 10, offset: number = 0, query?: string) {
+  async getTracks(count: number = 10, offset: number = 0, query?: string) {
     const queryFilter: QueryFilter<Track> = {};
     if (query) {
       queryFilter.name = { $regex: new RegExp(query, 'i') };
     }
-    return this.trackRepository.find(queryFilter).skip(offset).limit(count);
+    const [tracks, totalCount] = await Promise.all([
+      this.trackRepository.find(queryFilter).skip(offset).limit(count),
+      this.trackRepository.countDocuments(queryFilter)
+    ]);
+    const pagesAmount = Math.ceil(totalCount / count);
+    const currentPage = Math.floor(offset / count) + 1;
+    return { tracks, pages: pagesAmount, currentPage };
   }
 
   async getTrackById(id: ObjectId) {

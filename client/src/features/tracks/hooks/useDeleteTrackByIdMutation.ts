@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
 import { deleteTrackById } from '../api/tracks';
-import { Track } from '../types';
+import { Track, TracksData } from '../types';
 
 export default function useDeleteTrackByIdMutation() {
   const queryClient = useQueryClient();
@@ -11,28 +11,30 @@ export default function useDeleteTrackByIdMutation() {
     mutationFn: deleteTrackById,
     onMutate: (id: string) => {
       queryClient.cancelQueries({ queryKey: [TRACKS_CACHE_KEY] });
-      const prevTracksCopy = queryClient.getQueryData<Array<Track>>([
+      const prevTracksCopy = queryClient.getQueryData<TracksData>([
         TRACKS_CACHE_KEY
       ]);
-      queryClient.setQueryData(
-        [TRACKS_CACHE_KEY],
-        (prevTracks: Array<Track>) => {
-          return prevTracks.filter((track) => track._id !== id);
-        }
-      );
+      queryClient.setQueryData([TRACKS_CACHE_KEY], (prevTracks: TracksData) => {
+        return {
+          ...prevTracks,
+          tracks: prevTracks.tracks.filter((track) => track._id !== id)
+        };
+      });
 
       return prevTracksCopy;
     },
-    onSuccess: (removedTrack, __, prevTracks: Array<Track> | undefined) => {
+    onSuccess: (removedTrack, __, prevTracks: TracksData | undefined) => {
       if (!prevTracks) return;
-      queryClient.setQueryData(
-        [TRACKS_CACHE_KEY],
-        (prevTracks: Array<Track>) => {
-          return prevTracks.filter((track) => track._id !== removedTrack._id);
-        }
-      );
+      queryClient.setQueryData([TRACKS_CACHE_KEY], (prevTracks: TracksData) => {
+        return {
+          ...prevTracks,
+          tracks: prevTracks.tracks.filter(
+            (track) => track._id !== removedTrack._id
+          )
+        };
+      });
     },
-    onError: (_, __, prevTracks: Array<Track> | undefined) => {
+    onError: (_, __, prevTracks: TracksData | undefined) => {
       console.error('Error deleting track!');
       queryClient.setQueryData([TRACKS_CACHE_KEY], () => prevTracks);
     }

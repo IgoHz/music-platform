@@ -1,18 +1,19 @@
 'use server';
 
 import api from '@/api/api-wrapper';
-import { Comment, Track } from '@/features/tracks/types';
+import { Comment, Track, TracksData } from '@/features/tracks/types';
 import { AxiosResponse } from 'axios';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
 import { QueryClient } from '@tanstack/react-query';
 
 interface GetTracksParams {
   query?: string;
+  offset?: string;
 }
 
 export async function getTracks(params?: GetTracksParams) {
   try {
-    const response = await api.get<unknown, AxiosResponse<Array<Track>>>(
+    const response = await api.get<unknown, AxiosResponse<TracksData>>(
       '/tracks',
       {
         params
