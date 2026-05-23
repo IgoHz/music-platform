@@ -161,7 +161,7 @@ export function FileUploadField({
                 {value.name}
               </p>
 
-              <p className={cn('mt-1 font-mono text-xs', 'text-zinc-500')}>
+              <p className={cn('mt-1 font-mono text-sm', 'text-zinc-500')}>
                 {(value.size / 1024 / 1024).toFixed(2)} MB
               </p>
             </div>
@@ -186,7 +186,7 @@ export function FileUploadField({
         )}
       </div>
 
-      {error && <p className="font-mono text-xs text-red-500">{error}</p>}
+      {error && <p className="font-mono text-sm text-red-500">{error}</p>}
     </div>
   );
 }

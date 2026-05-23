@@ -40,10 +40,10 @@ function SearchField({
         onChange={onChange}
         data-slot="search-field-input"
         className={cn(
-          'h-8 w-full min-w-0 bg-transparent py-1 pl-8 pr-8 text-xs outline-none',
+          'h-8 w-full min-w-0 bg-transparent py-1 pl-8 pr-8 text-sm outline-none',
           'placeholder:text-muted-foreground',
           'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
-          'md:text-xs',
+          'md:text-sm',
 
           /* Hide native search clear button */
           '[&::-webkit-search-cancel-button]:appearance-none',
