@@ -1,39 +1,37 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
-import { createComment } from '../api/tracks';
+import { addListens } from '../api/tracks';
 import { Track } from '../types';
 
-export default function useCreateCommentMutation(id: string) {
+export default function useAddListensMutation(id: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: [TRACKS_CACHE_KEY, id],
-    mutationFn: createComment,
-    onMutate: (body) => {
+    mutationFn: () => addListens(id),
+    onMutate: () => {
       queryClient.cancelQueries({ queryKey: [TRACKS_CACHE_KEY, id] });
       const prevTrackCopy = queryClient.getQueryData<Track>([
         TRACKS_CACHE_KEY,
         id
       ]);
+      if (!prevTrackCopy) return;
       queryClient.setQueryData([TRACKS_CACHE_KEY, id], (prevTrack: Track) => ({
         ...prevTrack,
-        comments: [
-          ...prevTrack.comments,
-          { ...body, _id: prevTrack.comments.length.toString() }
-        ]
+        listens: prevTrack.listens + 1
       }));
 
       return prevTrackCopy;
     },
-    onSuccess: (createdComment, _, prevTrack: Track | undefined) => {
+    onSuccess: (_, __, prevTrack: Track | undefined) => {
       if (!prevTrack) return;
       queryClient.setQueryData([TRACKS_CACHE_KEY, id], () => ({
         ...prevTrack,
-        comments: [...prevTrack.comments, createdComment]
+        listens: prevTrack.listens + 1
       }));
     },
     onError: (error, __, prevTrack: Track | undefined) => {
-      console.error('Error creating comment!', error);
+      console.error('Error adding listens!', error);
       queryClient.setQueryData([TRACKS_CACHE_KEY, id], () => prevTrack);
     }
   });

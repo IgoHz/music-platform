@@ -45,8 +45,10 @@ export default function RootLayout({
     >
       <body className="h-screen h-svh grid grid-rows-[auto_1fr]">
         <Navigation />
-        <QueryProvider>{children}</QueryProvider>
-        <TrackPlayer />
+        <QueryProvider>
+          {children}
+          <TrackPlayer />
+        </QueryProvider>
       </body>
     </html>
   );

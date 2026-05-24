@@ -34,8 +34,8 @@ export default function useDeleteTrackByIdMutation() {
         };
       });
     },
-    onError: (_, __, prevTracks: TracksData | undefined) => {
-      console.error('Error deleting track!');
+    onError: (error, __, prevTracks: TracksData | undefined) => {
+      console.error('Error deleting track!', error);
       queryClient.setQueryData([TRACKS_CACHE_KEY], () => prevTracks);
     }
   });

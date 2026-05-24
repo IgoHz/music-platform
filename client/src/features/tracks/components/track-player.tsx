@@ -21,6 +21,7 @@ import { useEffect, useEffectEvent } from 'react';
 import { assertValue } from '@/lib/assert';
 import { formatStaticResourcePath } from '@/lib/static';
 import ServerImage from '@/components/server-image';
+import useAddListensMutation from '../hooks/useAddListensMutation';
 
 let audio: HTMLAudioElement | undefined;
 
@@ -39,6 +40,8 @@ export default function TrackPlayer() {
     setPlayerTrackProgressSelector
   );
   const setPlayerVolume = useTrackPlayerStore(setPlayerVolumeSelector);
+
+  const addListensMutation = useAddListensMutation(playerTrack?._id || '');
 
   useEffect(() => {
     if (!audio) {
@@ -78,6 +81,30 @@ export default function TrackPlayer() {
     }
     audio?.pause();
   }, [playerTrack, isPlaying]);
+
+  const isTrackEnded =
+    playerTrackProgress &&
+    playerTrackDuration &&
+    playerTrackProgress >= playerTrackDuration;
+
+  const handleAddListensEffect = useEffectEvent(() => {
+    addListensMutation.mutate();
+  });
+  useEffect(() => {
+    if (isPlaying && isTrackEnded) {
+      handleAddListensEffect();
+    }
+  }, [isPlaying, isTrackEnded]);
+
+  const handleTrackEndEffect = useEffectEvent(() => {
+    setPlayerStatus(PlayerStatus.PAUSE);
+    handleTrackProgressChange([0]);
+  });
+  useEffect(() => {
+    if (isPlaying && isTrackEnded) {
+      handleTrackEndEffect();
+    }
+  }, [isPlaying, isTrackEnded]);
 
   if (!playerTrack) {
     return null;

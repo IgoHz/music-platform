@@ -11,8 +11,8 @@ export default function useCreateTrackMutation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [TRACKS_CACHE_KEY] });
     },
-    onError: () => {
-      console.error('Error creating track!');
+    onError: (error) => {
+      console.error('Error creating track!', error);
     }
   });
 }

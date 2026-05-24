@@ -78,6 +78,18 @@ export async function createComment(body: CreateCommentBody) {
   }
 }
 
+export async function addListens(id: string) {
+  try {
+    await api.post<unknown, AxiosResponse<Track>>(`/tracks/listens/${id}`);
+
+    const queryClient = new QueryClient();
+    queryClient.invalidateQueries({ queryKey: [TRACKS_CACHE_KEY, id] });
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
+}
+
 export async function deleteTrackById(id: string) {
   try {
     const response = await api.delete<unknown, AxiosResponse<Track>>(
