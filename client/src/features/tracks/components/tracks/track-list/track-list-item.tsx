@@ -71,7 +71,7 @@ export default function TrackListItem({ track }: Props) {
       </div>
       <div className="flex items-center gap-4">
         <Button size="icon" variant="ghost">
-          <Link href={`/tracks/${track._id}`}>
+          <Link href={`/tracks/details/${track._id}`}>
             <Icon iconName="info" className="size-6" />
           </Link>
         </Button>

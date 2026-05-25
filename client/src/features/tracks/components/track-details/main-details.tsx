@@ -44,7 +44,7 @@ export default function MainDetails({ id }: Props) {
         </article>
       </div>
       <CreateCommentForm id={id} />
-      {!!track.comments.length && <CommentList comments={track.comments} />}
+      <CommentList comments={track.comments} />
     </>
   );
 }

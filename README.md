@@ -31,8 +31,9 @@ The client uses **Next.js App Router** and is organized around feature modules u
 - `src/app/` contains page-level route wrappers for:
   - `/tracks`
   - `/tracks/create`
-  - `/tracks/[id]`
+  - `/tracks/details/[id]`
 - The `Tracks`, `TrackDetails`, `TrackCreator`, and `TrackPlayer` feature components are composed into the routes.
+- The track details flow uses a **parallel intercepting route** so `/tracks/details/[id]` remains a valid full-page route while the same content can also open as a modal overlay over `/tracks` via the `@modal` slot. The modal route is implemented in `src/app/tracks/(details)/@modal/(.)details/[id]/page.tsx` and is rendered through the shared `TrackDetails` component.
 
 #### State and data flow
 
@@ -140,7 +141,7 @@ Uploaded files are written directly to the server filesystem under `server/src/s
 
 ### Frontend
 
-- **Next.js 16** — App Router, server components, and route-based rendering
+- **Next.js 16** — App Router, server components, route-based rendering, and **parallel intercepting routes** for modal overlays
 - **React 19** — UI rendering and hooks
 - **TypeScript** — strong typing across the client and server
 - **Tailwind CSS 4** — utility-first styling
