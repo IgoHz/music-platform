@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle,
+  DialogTitle
 } from '@/components/ui/dialog';
 import { useRouter } from 'next/navigation';
 import { ReactNode } from 'react';
@@ -17,7 +17,12 @@ interface Props {
   children: ReactNode;
 }
 
-export default function ModalWrapper({ backUrl, dialogTitle, dialogDescription, children }: Props) {
+export default function ModalWrapper({
+  backUrl,
+  dialogTitle,
+  dialogDescription,
+  children
+}: Props) {
   const router = useRouter();
 
   function handleOpenChange(open: boolean) {
@@ -25,12 +30,9 @@ export default function ModalWrapper({ backUrl, dialogTitle, dialogDescription, 
       router.push(backUrl);
     }
   }
-  
+
   return (
-    <Dialog
-      defaultOpen
-      onOpenChange={handleOpenChange}
-    >
+    <Dialog defaultOpen onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-6/10">
         <DialogHeader>
           <DialogTitle>{dialogTitle}</DialogTitle>

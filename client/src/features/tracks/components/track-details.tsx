@@ -15,7 +15,7 @@ interface Props {
   type: 'page' | 'modal';
 }
 
-export default async function TrackDetails({ id, type = 'page' }: Props) {
+export default async function TrackDetails({ id, type }: Props) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
