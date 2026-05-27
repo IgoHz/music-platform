@@ -7,7 +7,7 @@ import {
   QueryClient
 } from '@tanstack/react-query';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
-import { getTrackById } from '../api/tracks';
+import { getTrackById } from '../api';
 import ModalWrapper from '@/components/modal-wrapper';
 
 interface Props {

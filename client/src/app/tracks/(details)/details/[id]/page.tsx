@@ -1,6 +1,6 @@
 import { TrackDetails } from '@/features/tracks';
 import type { Metadata } from 'next';
-import { getTrackById } from '@/features/tracks/api/tracks';
+import { getTrackById } from '@/features/tracks/api';
 import { buildPageMetadata } from '@/lib/metadata/seo-utils';
 
 interface Props {

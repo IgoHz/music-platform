@@ -1,1 +1,2 @@
-export { getTracks } from './tracks';
+export * from './tracks';
+export * from './comments';

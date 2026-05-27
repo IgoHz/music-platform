@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
-import { getTrackById } from '../api/tracks';
+import { getTrackById } from '../api';
 
 export default function useTrackByIdQuery(id: string) {
   return useQuery({

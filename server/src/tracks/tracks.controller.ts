@@ -12,7 +12,6 @@ import {
 import { TracksService } from './tracks.service';
 import { CreateTrackDTO } from './dto/create-track.dto';
 import type { ObjectId } from 'mongoose';
-import { CreateCommentDTO } from './dto/create-comment.dto';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('tracks')
@@ -50,11 +49,6 @@ export class TracksController {
   ) {
     const { picture, audio } = files;
     return await this.service.createTrack(createTrackDTO, picture[0], audio[0]);
-  }
-
-  @Post('comment')
-  async createComment(@Body() createCommentDTO: CreateCommentDTO) {
-    return await this.service.createComment(createCommentDTO);
   }
 
   @Post('listens/:id')

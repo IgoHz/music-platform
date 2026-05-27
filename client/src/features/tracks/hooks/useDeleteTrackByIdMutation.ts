@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
-import { deleteTrackById } from '../api/tracks';
-import { Track, TracksData } from '../types';
+import { deleteTrackById } from '../api';
+import { TracksData } from '../types';
 
 export default function useDeleteTrackByIdMutation() {
   const queryClient = useQueryClient();
