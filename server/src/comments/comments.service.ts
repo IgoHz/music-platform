@@ -8,24 +8,26 @@ import { Track, TrackDocument } from '../tracks/schemas/track.schema';
 @Injectable()
 export class CommentsService {
   constructor(
-    @InjectModel(Comment.name) private commentRepository: Model<CommentDocument>,
-    @InjectModel(Track.name) private trackRepository: Model<TrackDocument>, 
+    @InjectModel(Comment.name)
+    private commentRepository: Model<CommentDocument>,
+    @InjectModel(Track.name) private trackRepository: Model<TrackDocument>
   ) {}
 
   async createComment(createCommentDTO: CreateCommentDTO) {
-    const foundTrack = await this.trackRepository.findById(
-      createCommentDTO.trackId
-    ).exec();
+    const foundTrack = await this.trackRepository
+      .findById(createCommentDTO.trackId)
+      .exec();
 
     if (!foundTrack) {
       throw new Error('Track not found');
     }
 
-    const createdComment = await this.commentRepository.create(createCommentDTO);
+    const createdComment =
+      await this.commentRepository.create(createCommentDTO);
 
     foundTrack.comments.push(createdComment._id);
     await foundTrack.save();
-    
+
     return createdComment;
   }
 }

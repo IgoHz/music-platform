@@ -7,13 +7,11 @@ import { TracksModule } from 'src/tracks/tracks.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-          { name: Comment.name, schema: CommentSchema }
-        ]),
-        forwardRef(() => TracksModule),
+    MongooseModule.forFeature([{ name: Comment.name, schema: CommentSchema }]),
+    forwardRef(() => TracksModule)
   ],
   controllers: [CommentsController],
   providers: [CommentsService],
-  exports: [],
+  exports: []
 })
 export class CommentsModule {}

@@ -8,9 +8,7 @@ import { CommentsModule } from 'src/comments/comments.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: Track.name, schema: TrackSchema }
-    ]),
+    MongooseModule.forFeature([{ name: Track.name, schema: TrackSchema }]),
     forwardRef(() => CommentsModule)
   ],
   controllers: [TracksController],

@@ -8,8 +8,6 @@ export class CommentsController {
 
   @Post('')
   async createComment(@Body() createCommentDTO: CreateCommentDTO) {
-    return await this.commentsService.createComment(
-      createCommentDTO
-    );
+    return await this.commentsService.createComment(createCommentDTO);
   }
 }

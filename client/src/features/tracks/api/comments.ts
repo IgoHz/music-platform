@@ -1,8 +1,8 @@
-import api from "@/api/api-wrapper";
-import { QueryClient } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
-import { TRACKS_CACHE_KEY } from "../constants/cache-keys";
-import { Comment } from "../types";
+import api from '@/api/api-wrapper';
+import { QueryClient } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
+import { Comment } from '../types';
 
 interface CreateCommentBody extends Omit<Comment, '_id'> {
   trackId: string;
