@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Album, AlbumDocument } from './schemas/album.schema';
 import { Model, QueryFilter, type ObjectId } from 'mongoose';
 import { CreateAlbumDTO } from './dto/create-album.dto';
-import { UpdateAlbumDTO } from './dto/update-album.dto';
 import { FindAlbumDto } from './dto/find-album.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { FilesService } from 'src/files/files.service';
+import { FileType } from 'src/files/files.constants';
 
 @Injectable()
 export class AlbumsService {
   constructor(
     @InjectModel(Album.name) private albumRepository: Model<AlbumDocument>,
+    private filesService: FilesService
   ) {}
 
   async getAllAlbums(query?: FindAlbumDto) {
@@ -21,7 +23,7 @@ export class AlbumsService {
       queryFilter.artist = { $regex: new RegExp(query.artist, 'i') };
     }
 
-    return await this.albumRepository.find(queryFilter).populate('tracks');
+    return await this.albumRepository.find(queryFilter);
   }
 
   async getAlbumById(id: ObjectId) {
@@ -29,18 +31,19 @@ export class AlbumsService {
     return album;
   }
 
-  async createAlbum(createAlbumDTO: CreateAlbumDTO) {
-    const createdAlbum = await this.albumRepository.create(createAlbumDTO);
-    return createdAlbum;
-  }
-
-  async updateAlbum(id: ObjectId, updateAlbumDTO: UpdateAlbumDTO) {
-    const updatedAlbum = await this.albumRepository.findByIdAndUpdate(
-      id,
-      { $set: updateAlbumDTO },
-      { new: true }
+  async createAlbum(
+    createAlbumDTO: CreateAlbumDTO,
+    picture: Express.Multer.File
+  ) {
+    const pictureMetaString = this.filesService.createFile(
+      FileType.PICTURE,
+      picture
     );
-    return updatedAlbum;
+    const createdAlbum = await this.albumRepository.create({
+      ...createAlbumDTO,
+      coverImage: pictureMetaString
+    });
+    return createdAlbum;
   }
 
   async deleteAlbumById(id: ObjectId) {

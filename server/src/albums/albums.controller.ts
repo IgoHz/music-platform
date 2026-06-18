@@ -5,14 +5,15 @@ import {
   Get,
   Param,
   Post,
-  Patch,
-  Query
+  Query,
+  UploadedFiles,
+  UseInterceptors
 } from '@nestjs/common';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDTO } from './dto/create-album.dto';
-import { UpdateAlbumDTO } from './dto/update-album.dto';
 import { FindAlbumDto } from './dto/find-album.dto';
 import type { ObjectId } from 'mongoose';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('albums')
 export class AlbumsController {
@@ -29,13 +30,16 @@ export class AlbumsController {
   }
 
   @Post()
-  async createAlbum(@Body() createAlbumDTO: CreateAlbumDTO) {
-    return await this.service.createAlbum(createAlbumDTO);
-  }
-
-  @Patch(':id')
-  async updateAlbum(@Param('id') id: ObjectId, @Body() updateAlbumDTO: UpdateAlbumDTO) {
-    return await this.service.updateAlbum(id, updateAlbumDTO);
+  @UseInterceptors(FileFieldsInterceptor([{ name: 'picture', maxCount: 1 }]))
+  async createAlbum(
+    @Body() createAlbumDTO: CreateAlbumDTO,
+    @UploadedFiles()
+    files: {
+      picture: Express.Multer.File[];
+    }
+  ) {
+    const { picture } = files;
+    return await this.service.createAlbum(createAlbumDTO, picture[0]);
   }
 
   @Delete(':id')
