@@ -11,6 +11,7 @@ import { FileType } from 'src/files/files.constants';
 export class AlbumsService {
   constructor(
     @InjectModel(Album.name) private albumRepository: Model<AlbumDocument>,
+    @InjectModel('Track') private trackRepository: Model<any>,
     private filesService: FilesService
   ) {}
 
@@ -43,11 +44,31 @@ export class AlbumsService {
       ...createAlbumDTO,
       coverImage: pictureMetaString
     });
+
+    if (createAlbumDTO.trackIds?.length) {
+      await this.trackRepository.updateMany(
+        { _id: { $in: createAlbumDTO.trackIds } },
+        { $set: { albumId: createdAlbum._id } }
+      );
+    }
+
     return createdAlbum;
   }
 
   async deleteAlbumById(id: ObjectId) {
+    await this.trackRepository.updateMany(
+      { albumId: id },
+      { $unset: { albumId: '' } }
+    );
     const deletedAlbum = await this.albumRepository.findByIdAndDelete(id);
     return deletedAlbum;
+  }
+
+  async attachTracksToAlbum(albumId: ObjectId, trackIds: ObjectId[]) {
+    if (!trackIds?.length) return [];
+    return await this.trackRepository.updateMany(
+      { _id: { $in: trackIds } },
+      { $set: { albumId } }
+    );
   }
 }

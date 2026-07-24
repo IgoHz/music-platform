@@ -26,6 +26,9 @@ export class Track {
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
   declare comments: mongoose.Types.ObjectId[];
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Album', nullable: true })
+  declare albumId?: mongoose.Types.ObjectId | null;
 }
 
 export const TrackSchema = SchemaFactory.createForClass(Track);

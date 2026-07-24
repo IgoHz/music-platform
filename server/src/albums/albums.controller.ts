@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Query,
   UploadedFiles,
@@ -40,6 +41,14 @@ export class AlbumsController {
   ) {
     const { picture } = files;
     return await this.service.createAlbum(createAlbumDTO, picture[0]);
+  }
+
+  @Patch(':id/tracks')
+  async attachTracksToAlbum(
+    @Param('id') id: ObjectId,
+    @Body() body: { trackIds: ObjectId[] }
+  ) {
+    return await this.service.attachTracksToAlbum(id, body.trackIds);
   }
 
   @Delete(':id')

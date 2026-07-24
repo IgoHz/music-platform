@@ -3,13 +3,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AlbumsService } from './albums.service';
 import { AlbumsController } from './albums.controller';
 import { Album, AlbumSchema } from './schemas/album.schema';
-import { TracksModule } from 'src/tracks/tracks.module';
+import { Track, TrackSchema } from 'src/tracks/schemas/track.schema';
 import { FilesService } from 'src/files/files.service';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Album.name, schema: AlbumSchema }]),
-    TracksModule
+    MongooseModule.forFeature([
+      { name: Album.name, schema: AlbumSchema },
+      { name: Track.name, schema: TrackSchema }
+    ])
   ],
   controllers: [AlbumsController],
   providers: [AlbumsService, FilesService],
