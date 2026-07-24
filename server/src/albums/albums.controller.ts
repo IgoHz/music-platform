@@ -15,6 +15,7 @@ import { CreateAlbumDTO } from './dto/create-album.dto';
 import { FindAlbumDto } from './dto/find-album.dto';
 import type { ObjectId } from 'mongoose';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { AttachTracksToAlbumDTO } from './dto/attach-tracks-to-album.dto';
 
 @Controller('albums')
 export class AlbumsController {
@@ -46,9 +47,9 @@ export class AlbumsController {
   @Patch(':id/tracks')
   async attachTracksToAlbum(
     @Param('id') id: ObjectId,
-    @Body() body: { trackIds: ObjectId[] }
+    @Body() body: AttachTracksToAlbumDTO
   ) {
-    return await this.service.attachTracksToAlbum(id, body.trackIds);
+    return await this.service.attachTracksToAlbum(id, body);
   }
 
   @Delete(':id')

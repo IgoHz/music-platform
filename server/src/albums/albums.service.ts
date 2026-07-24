@@ -6,6 +6,7 @@ import { FindAlbumDto } from './dto/find-album.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilesService } from 'src/files/files.service';
 import { FileType } from 'src/files/files.constants';
+import { AttachTracksToAlbumDTO } from './dto/attach-tracks-to-album.dto';
 
 @Injectable()
 export class AlbumsService {
@@ -40,9 +41,11 @@ export class AlbumsService {
       FileType.PICTURE,
       picture
     );
+    const { trackIds, ...albumData } = createAlbumDTO;
     const createdAlbum = await this.albumRepository.create({
-      ...createAlbumDTO,
-      coverImage: pictureMetaString
+      ...albumData,
+      coverImage: pictureMetaString,
+      tracks: trackIds
     });
 
     if (createAlbumDTO.trackIds?.length) {
@@ -64,11 +67,24 @@ export class AlbumsService {
     return deletedAlbum;
   }
 
-  async attachTracksToAlbum(albumId: ObjectId, trackIds: ObjectId[]) {
-    if (!trackIds?.length) return [];
-    return await this.trackRepository.updateMany(
-      { _id: { $in: trackIds } },
-      { $set: { albumId } }
-    );
+  async attachTracksToAlbum(
+    albumId: ObjectId,
+    attachTracksToAlbumDTO: AttachTracksToAlbumDTO
+  ) {
+    if (!attachTracksToAlbumDTO.trackIds?.length) return [];
+    const [updatedAlbum] = await Promise.all([
+      this.albumRepository.findByIdAndUpdate(
+        albumId,
+        {
+          $push: { tracks: { $each: attachTracksToAlbumDTO.trackIds } }
+        },
+        { new: true }
+      ),
+      this.trackRepository.updateMany(
+        { _id: { $in: attachTracksToAlbumDTO.trackIds } },
+        { $set: { albumId } }
+      )
+    ]);
+    return updatedAlbum;
   }
 }

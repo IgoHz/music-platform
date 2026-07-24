@@ -1,4 +1,5 @@
-import type { ObjectId } from 'mongoose';
+import { Transform } from 'class-transformer';
+import { IsMongoId } from 'class-validator';
 
 export class CreateAlbumDTO {
   declare readonly name: string;
@@ -7,5 +8,13 @@ export class CreateAlbumDTO {
 
   declare readonly releaseDate: string;
 
-  declare readonly trackIds?: ObjectId[];
+  @Transform(({ value }: { value: string | string[] }) => {
+    if (!value) {
+      return undefined;
+    }
+
+    return typeof value === 'string' ? (JSON.parse(value) as string[]) : value;
+  })
+  @IsMongoId({ each: true })
+  declare readonly trackIds?: string[];
 }
