@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { FilesModule } from './files/files.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { resolve } from 'path';
+import { AlbumsModule } from './albums/albums.module';
 import { CommentsModule } from './comments/comments.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { CommentsModule } from './comments/comments.module';
     }),
     TracksModule,
     CommentsModule,
+    AlbumsModule,
     FilesModule
   ],
   controllers: [AppController],
