@@ -1,20 +1,20 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Track } from '../../../types';
-import Icon from '@/components/ui/icon';
+import { Button } from '@/shared/components/ui/button';
+import Icon from '@/shared/components/ui/icon';
 import Link from 'next/link';
-import Header from '@/components/ui/header';
+import Header from '@/shared/components/ui/header';
 import {
   playerStatusSelector,
   playerTrackSelector,
   setPlayerStatusSelector,
   setPlayerTrackSelector,
-  useTrackPlayerStore
-} from '@/features/tracks/store/track-player';
-import { PlayerStatus } from '@/features/tracks/store/track-player/store';
+  useTrackPlayerStore,
+  PlayerStatus
+} from '@/entities/tracks/track-player';
 import useDeleteTrackByIdMutation from '../../../hooks/useDeleteTrackByIdMutation';
-import ServerImage from '@/components/server-image';
+import ServerImage from '@/shared/components/server-image';
+import { Track } from '@/entities/tracks/general';
 
 interface Props {
   track: Track;

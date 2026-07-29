@@ -1,6 +1,6 @@
 import { Tracks } from '@/features/tracks';
 import type { Metadata } from 'next';
-import { buildPageMetadata } from '@/lib/metadata/seo-utils';
+import { buildPageMetadata } from '@/shared/lib/metadata/seo-utils';
 
 interface Props {
   searchParams: Promise<{ query?: string; offset?: string }>;

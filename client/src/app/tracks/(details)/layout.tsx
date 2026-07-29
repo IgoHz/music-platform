@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import type { Metadata } from 'next';
-import { buildPageMetadata } from '@/lib/metadata/seo-utils';
+import { buildPageMetadata } from '@/shared/lib/metadata/seo-utils';
 
 interface Props {
   children: ReactNode;

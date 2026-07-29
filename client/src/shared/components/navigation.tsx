@@ -1,0 +1,43 @@
+'use client';
+
+import Link from 'next/link';
+
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle
+} from './ui/navigation-menu';
+
+const components: { title: string; href: string }[] = [
+  {
+    title: 'Home',
+    href: '/'
+  },
+  {
+    title: 'Tracks',
+    href: '/tracks'
+  }
+];
+
+export default function NavigationMenuDemo() {
+  return (
+    <header className="sticky top-0 flex justify-center p-1 mb-2 bg-gray-50">
+      <NavigationMenu>
+        <NavigationMenuList>
+          {components.map(({ title, href }) => (
+            <NavigationMenuItem key={title}>
+              <NavigationMenuLink
+                asChild
+                className={navigationMenuTriggerStyle()}
+              >
+                <Link href={href}>{title}</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
+    </header>
+  );
+}

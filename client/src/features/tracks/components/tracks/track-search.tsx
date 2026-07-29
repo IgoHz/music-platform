@@ -1,9 +1,9 @@
 'use client';
 
-import { SearchField } from '@/components/search-field';
+import { SearchField } from '@/shared/components/search-field';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useEffectEvent, useRef, useState } from 'react';
-import { useUpdateQuery } from '@/hooks/useUpdateQuery';
+import { useUpdateQuery } from '@/shared/hooks/useUpdateQuery';
 
 export default function TrackSearch() {
   const searchParams = useSearchParams();

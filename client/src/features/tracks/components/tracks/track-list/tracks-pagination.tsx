@@ -6,12 +6,9 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious
-} from '@/components/ui/pagination';
-import { useUpdateQuery } from '@/hooks/useUpdateQuery';
-import {
-  DEFAULT_PAGE_SIZE,
-  PAGE_RANGE
-} from '@/features/tracks/constants/pagination';
+} from '@/shared/components/ui/pagination';
+import { useUpdateQuery } from '@/shared/hooks/useUpdateQuery';
+import { DEFAULT_PAGE_SIZE, PAGE_RANGE } from '@/entities/tracks/general';
 
 interface Props {
   className?: string;

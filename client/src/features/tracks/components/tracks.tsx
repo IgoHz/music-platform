@@ -1,16 +1,15 @@
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { Button } from '@/shared/components/ui/button';
+import { Separator } from '@/shared/components/ui/separator';
 import Link from 'next/link';
 import TrackList from './tracks/track-list';
-import Header from '@/components/ui/header';
+import Header from '@/shared/components/ui/header';
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient
 } from '@tanstack/react-query';
-import { getTracks } from '@/features/tracks/api';
-import { TRACKS_CACHE_KEY } from '../constants/cache-keys';
 import TrackSearch from './tracks/track-search';
+import { getTracks, TRACKS_CACHE_KEY } from '@/entities/tracks/general';
 
 interface Props {
   query?: string;

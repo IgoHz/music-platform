@@ -1,6 +1,6 @@
-import { TrackDetails } from '@/features/tracks';
+import { TrackDetails } from '@/features/track-details';
 import type { Metadata } from 'next';
-import { buildPageMetadata } from '@/lib/metadata/seo-utils';
+import { buildPageMetadata } from '@/shared/lib/metadata/seo-utils';
 
 interface Props {
   params: Promise<{ id: string }>;

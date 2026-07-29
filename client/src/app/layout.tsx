@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
-import { cn } from '@/lib/utils';
-import Navigation from '@/components/navigation';
-import { TrackPlayer } from '@/features/tracks';
-import QueryProvider from '@/providers/query-provider';
-import { getBaseMetadata } from '@/lib/metadata/seo-utils';
+import { cn } from '@/shared/lib/utils';
+import Navigation from '@/shared/components/navigation';
+import { TrackPlayer } from '@/features/track-player';
+import QueryProvider from '@/shared/providers/query-provider';
+import { getBaseMetadata } from '@/shared/lib/metadata/seo-utils';
 
 const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',

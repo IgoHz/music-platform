@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { buildPageMetadata } from '@/lib/metadata/seo-utils';
+import { buildPageMetadata } from '@/shared/lib/metadata/seo-utils';
 
 export const metadata: Metadata = buildPageMetadata({
   title: 'Home',
