@@ -6,64 +6,47 @@ import {
   CollapsibleTrigger
 } from './ui/collapsible';
 import { Button } from './ui/button';
-import {
-  accordionIsHydratedSelector,
-  accordionOpenedSectionIdSelector,
-  accordionSectionsSelector,
-  setAccordionOpenedSectionIdSelector,
-  initAccordionSectionsSelector,
-  useAccordionSectionsStore
-} from '@/entities/accordion-sections';
-import { JSX, useEffect, useEffectEvent } from 'react';
+import { JSX } from 'react';
 import { Separator } from './ui/separator';
 import Header from './ui/header';
-import { AccordionSectionStatus } from '@/entities/accordion-sections/model/store';
-
-export type AccordionConfig = Record<string, AccordionConfigItem>;
-
-interface AccordionConfigItem {
-  title: string;
-  component: JSX.Element;
-}
 
 interface AccordionProps {
-  config: AccordionConfig;
+  sections: AccordionSection[];
+  openedSectionId: string | null;
+  setOpenedSectionId: (sectionId: string) => void;
   className?: string;
 }
 
-export function Accordion({ config, className }: AccordionProps) {
-  const sections = useAccordionSectionsStore(accordionSectionsSelector);
-  const isHydrated = useAccordionSectionsStore(accordionIsHydratedSelector);
+export interface AccordionSection {
+  id: string;
+  title: string;
+  component: JSX.Element;
+  disabled?: boolean;
+}
 
-  const initSections = useAccordionSectionsStore(initAccordionSectionsSelector);
-
-  const sectionKeys = Object.keys(sections);
-  const sectionKeysLength = sectionKeys.length;
-
-  const handleEffectEvent = useEffectEvent(() => {
-    initSections(Object.keys(config));
-  });
-  useEffect(() => {
-    if (isHydrated && !sectionKeysLength) {
-      handleEffectEvent();
-    }
-  }, [isHydrated, sectionKeysLength]);
-
-  if (!sectionKeysLength) {
+export function Accordion({
+  sections,
+  openedSectionId,
+  setOpenedSectionId,
+  className
+}: AccordionProps) {
+  if (!sections.length) {
     // TODO: Provide a proper skeleton
     return <div>Loading</div>;
   }
 
   return (
     <div className={className}>
-      {sectionKeys.map((sectionKey) => (
+      {sections.map((section) => (
         <AccordionSection
-          key={sectionKey}
-          id={sectionKey}
-          title={config[sectionKey].title}
-          status={sections[sectionKey]}
+          key={section.id}
+          id={section.id}
+          title={section.title}
+          disabled={section.disabled}
+          openedSectionId={openedSectionId}
+          setOpenedSectionId={setOpenedSectionId}
         >
-          {config[sectionKey].component}
+          {section.component}
         </AccordionSection>
       ))}
     </div>
@@ -73,25 +56,21 @@ export function Accordion({ config, className }: AccordionProps) {
 interface AccordionSectionProps {
   id: string;
   title: string;
-  status: AccordionSectionStatus;
+  disabled?: boolean;
+  openedSectionId: string | null;
+  setOpenedSectionId: (sectionId: string) => void;
   children: JSX.Element;
 }
 
 function AccordionSection({
   id,
   title,
-  status,
-  children
+  disabled,
+  children,
+  openedSectionId,
+  setOpenedSectionId
 }: AccordionSectionProps) {
-  const openedSectionId = useAccordionSectionsStore(
-    accordionOpenedSectionIdSelector
-  );
-  const setOpenedSectionId = useAccordionSectionsStore(
-    setAccordionOpenedSectionIdSelector
-  );
-
   const isOpen = id === openedSectionId;
-  const isInvalid = status === AccordionSectionStatus.INVALID;
 
   function handleOpenChange(open: boolean) {
     if (open) {
@@ -102,7 +81,7 @@ function AccordionSection({
   return (
     <Collapsible
       open={isOpen}
-      disabled={!isOpen && isInvalid}
+      disabled={!isOpen && disabled}
       onOpenChange={handleOpenChange}
     >
       <div className="flex justify-end">

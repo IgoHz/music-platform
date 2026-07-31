@@ -2,11 +2,6 @@
 
 import { Button } from '@/shared/components/ui/button';
 import {
-  accordionSectionsSelector,
-  resetAccordionSectionsStoreSelector,
-  useAccordionSectionsStore
-} from '@/entities/accordion-sections';
-import {
   resetTrackCreatorStoreSelector,
   trackCreatorArtistSelector,
   trackCreatorAudioSelector,
@@ -15,9 +10,14 @@ import {
   trackCreatorTextSelector,
   useTrackCreatorStore
 } from '@/entities/tracks/track-creator';
-import { AccordionSectionStatus } from '@/entities/accordion-sections/model/store';
 import { useRouter } from 'next/navigation';
 import useCreateTrackMutation from '../../hooks/useCreateTrackMutation';
+import { useTrackCreatorAccordionSectionsStore } from '../../model/accordion-sections-store';
+import {
+  accordionSectionStatusesSelector,
+  resetAccordionSectionsStoreSelector
+} from '@/shared/lib/accordion-sections/selectors';
+import { AccordionSectionStatus } from '@/shared/lib/accordion-sections/section-status';
 
 interface Props {
   className?: string;
@@ -26,11 +26,11 @@ interface Props {
 export default function Controls({ className }: Props) {
   const router = useRouter();
 
-  const accordionSections = useAccordionSectionsStore(
-    accordionSectionsSelector
+  const accordionSections = useTrackCreatorAccordionSectionsStore(
+    accordionSectionStatusesSelector
   );
 
-  const resetAccordionSectionsStore = useAccordionSectionsStore(
+  const resetAccordionSectionsStore = useTrackCreatorAccordionSectionsStore(
     resetAccordionSectionsStoreSelector
   );
 

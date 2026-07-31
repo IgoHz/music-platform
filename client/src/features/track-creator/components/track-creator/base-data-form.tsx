@@ -10,12 +10,6 @@ import {
 } from '@/shared/components/ui/field';
 import { Input } from '@/shared/components/ui/input';
 import { Textarea } from '@/shared/components/ui/textarea';
-import {
-  setAccordionOpenedSectionIdSelector,
-  setAccordionSectionStatusSelector,
-  useAccordionSectionsStore
-} from '@/entities/accordion-sections';
-import { AccordionSectionStatus } from '@/entities/accordion-sections/model/store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -26,6 +20,12 @@ import {
   trackCreatorTextSelector,
   useTrackCreatorStore
 } from '@/entities/tracks/track-creator';
+import { useTrackCreatorAccordionSectionsStore } from '../../model/accordion-sections-store';
+import {
+  setAccordionOpenedSectionIdSelector,
+  setAccordionSectionStatusSelector
+} from '@/shared/lib/accordion-sections/selectors';
+import { AccordionSectionStatus } from '@/shared/lib/accordion-sections/section-status';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Track Name must be at least 2 characters!'),
@@ -59,10 +59,10 @@ export default function BaseDataForm({ sectionId, nextSectionId }: Props) {
   });
   const { errors } = formState;
 
-  const setOpenedSectionId = useAccordionSectionsStore(
+  const setOpenedSectionId = useTrackCreatorAccordionSectionsStore(
     setAccordionOpenedSectionIdSelector
   );
-  const setSectionStatus = useAccordionSectionsStore(
+  const setSectionStatus = useTrackCreatorAccordionSectionsStore(
     setAccordionSectionStatusSelector
   );
 

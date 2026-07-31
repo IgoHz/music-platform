@@ -1,6 +1,7 @@
-import { State } from './store';
+import { State } from './store-factory';
 
-export const accordionSectionsSelector = (state: State) => state.sections;
+export const accordionSectionStatusesSelector = (state: State) =>
+  state.sectionStatuses;
 export const accordionOpenedSectionIdSelector = (state: State) =>
   state.openedSectionId;
 export const accordionIsHydratedSelector = (state: State) => state.isRehydrated;
