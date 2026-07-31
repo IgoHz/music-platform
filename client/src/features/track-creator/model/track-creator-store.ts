@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { Track } from '@/entities/tracks/general';
+import { Track } from '@/entities/track';
 
 export interface State extends BaseData {
   picture: File | null;

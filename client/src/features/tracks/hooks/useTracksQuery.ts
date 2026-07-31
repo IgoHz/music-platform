@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getTracks, TRACKS_CACHE_KEY } from '@/entities/tracks/general';
+import { getTracks, TRACKS_CACHE_KEY } from '@/entities/track';
 
 export default function useTracksQuery(query?: string, offset?: string) {
   return useQuery({

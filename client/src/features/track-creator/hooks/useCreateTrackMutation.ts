@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TRACKS_CACHE_KEY } from '@/entities/tracks/general';
-import { createTrack } from '@/entities/tracks/general';
+import { TRACKS_CACHE_KEY } from '@/entities/track';
+import { createTrack } from '@/entities/track';
 
 export default function useCreateTrackMutation() {
   const queryClient = useQueryClient();

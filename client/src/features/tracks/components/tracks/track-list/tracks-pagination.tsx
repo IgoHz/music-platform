@@ -8,7 +8,7 @@ import {
   PaginationPrevious
 } from '@/shared/components/ui/pagination';
 import { useUpdateQuery } from '@/shared/hooks/useUpdateQuery';
-import { DEFAULT_PAGE_SIZE, PAGE_RANGE } from '@/entities/tracks/general';
+import { DEFAULT_PAGE_SIZE, PAGE_RANGE } from '@/entities/track';
 
 interface Props {
   className?: string;

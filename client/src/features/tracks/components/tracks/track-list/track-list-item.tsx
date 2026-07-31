@@ -4,17 +4,17 @@ import { Button } from '@/shared/components/ui/button';
 import Icon from '@/shared/components/ui/icon';
 import Link from 'next/link';
 import Header from '@/shared/components/ui/header';
+import useDeleteTrackByIdMutation from '../../../hooks/useDeleteTrackByIdMutation';
+import ServerImage from '@/shared/components/server-image';
+import { Track } from '@/entities/track';
 import {
+  PlayerStatus,
   playerStatusSelector,
   playerTrackSelector,
   setPlayerStatusSelector,
   setPlayerTrackSelector,
-  useTrackPlayerStore,
-  PlayerStatus
-} from '@/entities/tracks/track-player';
-import useDeleteTrackByIdMutation from '../../../hooks/useDeleteTrackByIdMutation';
-import ServerImage from '@/shared/components/server-image';
-import { Track } from '@/entities/tracks/general';
+  useTrackPlayerStore
+} from '@/entities/player';
 
 interface Props {
   track: Track;

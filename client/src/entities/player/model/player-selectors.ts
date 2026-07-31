@@ -1,4 +1,4 @@
-import { State } from './store';
+import { State } from './player-store';
 
 export const playerTrackSelector = (state: State) => state.track;
 export const playerStatusSelector = (state: State) => state.status;

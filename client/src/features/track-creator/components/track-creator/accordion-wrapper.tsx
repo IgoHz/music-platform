@@ -7,7 +7,7 @@ import {
   accordionSectionStatusesSelector,
   initAccordionSectionsSelector,
   setAccordionOpenedSectionIdSelector
-} from '@/shared/lib/accordion-sections/selectors';
+} from '@/shared/lib/accordion-sections/sections-selectors';
 import { useTrackCreatorAccordionSectionsStore } from '../../model/accordion-sections-store';
 import { AccordionSection } from '@/shared/components/accordion';
 import { useEffect, useEffectEvent, useMemo } from 'react';

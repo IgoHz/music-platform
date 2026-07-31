@@ -1,23 +1,23 @@
 'use client';
 
 import { Button } from '@/shared/components/ui/button';
-import {
-  resetTrackCreatorStoreSelector,
-  trackCreatorArtistSelector,
-  trackCreatorAudioSelector,
-  trackCreatorNameSelector,
-  trackCreatorPictureSelector,
-  trackCreatorTextSelector,
-  useTrackCreatorStore
-} from '@/entities/tracks/track-creator';
 import { useRouter } from 'next/navigation';
 import useCreateTrackMutation from '../../hooks/useCreateTrackMutation';
 import { useTrackCreatorAccordionSectionsStore } from '../../model/accordion-sections-store';
 import {
   accordionSectionStatusesSelector,
   resetAccordionSectionsStoreSelector
-} from '@/shared/lib/accordion-sections/selectors';
+} from '@/shared/lib/accordion-sections/sections-selectors';
 import { AccordionSectionStatus } from '@/shared/lib/accordion-sections/section-status';
+import useTrackCreatorStore from '../../model/track-creator-store';
+import {
+  resetTrackCreatorStoreSelector,
+  trackCreatorArtistSelector,
+  trackCreatorAudioSelector,
+  trackCreatorNameSelector,
+  trackCreatorPictureSelector,
+  trackCreatorTextSelector
+} from '../../model/track-creator-selectors';
 
 interface Props {
   className?: string;

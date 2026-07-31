@@ -1,5 +1,5 @@
 import Header from '@/shared/components/ui/header';
-import { Comment } from '@/entities/tracks/track-comments';
+import { Comment } from '@/entities/track';
 import CommentListItem from './comment-list/comment-list-item';
 
 interface Props {

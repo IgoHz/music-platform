@@ -3,7 +3,7 @@ import {
   deleteTrackById,
   TRACKS_CACHE_KEY,
   TracksData
-} from '@/entities/tracks/general';
+} from '@/entities/track';
 
 export default function useDeleteTrackByIdMutation() {
   const queryClient = useQueryClient();

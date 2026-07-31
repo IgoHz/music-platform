@@ -3,11 +3,6 @@
 import { FileUploadField } from '@/shared/components/file-upload';
 import { Button } from '@/shared/components/ui/button';
 import { Field, FieldGroup, FieldSet } from '@/shared/components/ui/field';
-import {
-  trackCreatorAudioSelector,
-  setTrackCreatorAudioSelector,
-  useTrackCreatorStore
-} from '@/entities/tracks/track-creator';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -15,8 +10,13 @@ import { useTrackCreatorAccordionSectionsStore } from '../../model/accordion-sec
 import {
   setAccordionOpenedSectionIdSelector,
   setAccordionSectionStatusSelector
-} from '@/shared/lib/accordion-sections/selectors';
+} from '@/shared/lib/accordion-sections/sections-selectors';
 import { AccordionSectionStatus } from '@/shared/lib/accordion-sections/section-status';
+import useTrackCreatorStore from '../../model/track-creator-store';
+import {
+  setTrackCreatorAudioSelector,
+  trackCreatorAudioSelector
+} from '../../model/track-creator-selectors';
 
 const formSchema = z.object({
   audio: z.instanceof(File)

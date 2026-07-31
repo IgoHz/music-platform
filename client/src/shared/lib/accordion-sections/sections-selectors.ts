@@ -1,4 +1,4 @@
-import { State } from './store-factory';
+import { State } from './sections-store-factory';
 
 export const accordionSectionStatusesSelector = (state: State) =>
   state.sectionStatuses;

@@ -6,17 +6,17 @@ import { Field, FieldGroup, FieldSet } from '@/shared/components/ui/field';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import {
-  setTrackCreatorPictureSelector,
-  trackCreatorPictureSelector,
-  useTrackCreatorStore
-} from '@/entities/tracks/track-creator';
 import { useTrackCreatorAccordionSectionsStore } from '../../model/accordion-sections-store';
 import {
   setAccordionOpenedSectionIdSelector,
   setAccordionSectionStatusSelector
-} from '@/shared/lib/accordion-sections/selectors';
+} from '@/shared/lib/accordion-sections/sections-selectors';
 import { AccordionSectionStatus } from '@/shared/lib/accordion-sections/section-status';
+import useTrackCreatorStore from '../../model/track-creator-store';
+import {
+  setTrackCreatorPictureSelector,
+  trackCreatorPictureSelector
+} from '../../model/track-creator-selectors';
 
 const formSchema = z.object({
   picture: z.instanceof(File)

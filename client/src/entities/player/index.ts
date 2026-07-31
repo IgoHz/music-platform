@@ -1,4 +1,4 @@
-export { default as useTrackPlayerStore } from './model/store';
+export { default as useTrackPlayerStore } from './model/player-store';
 export {
   playerTrackSelector,
   playerStatusSelector,
@@ -10,5 +10,5 @@ export {
   setPlayerTrackDurationSelector,
   setPlayerTrackProgressSelector,
   setPlayerVolumeSelector
-} from './model/selectors';
+} from './model/player-selectors';
 export { PlayerStatus } from './model/player-status';

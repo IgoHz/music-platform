@@ -1,4 +1,4 @@
-import { Comment } from '@/entities/tracks/track-comments';
+import { Comment } from '@/entities/track';
 
 interface Props {
   comment: Comment;

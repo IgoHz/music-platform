@@ -6,9 +6,9 @@ import {
   HydrationBoundary,
   QueryClient
 } from '@tanstack/react-query';
-import { TRACKS_CACHE_KEY } from '@/entities/tracks/general';
+import { TRACKS_CACHE_KEY } from '@/entities/track';
 import ModalWrapper from '@/shared/components/modal-wrapper';
-import { getTrackById } from '@/entities/tracks/general';
+import { getTrackById } from '@/entities/track';
 
 interface Props {
   id: string;

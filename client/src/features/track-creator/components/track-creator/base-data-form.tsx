@@ -13,18 +13,18 @@ import { Textarea } from '@/shared/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import useTrackCreatorStore from '../../model/track-creator-store';
 import {
   setTrackCreatorBaseDataSelector,
   trackCreatorArtistSelector,
   trackCreatorNameSelector,
-  trackCreatorTextSelector,
-  useTrackCreatorStore
-} from '@/entities/tracks/track-creator';
+  trackCreatorTextSelector
+} from '../../model/track-creator-selectors';
 import { useTrackCreatorAccordionSectionsStore } from '../../model/accordion-sections-store';
 import {
   setAccordionOpenedSectionIdSelector,
   setAccordionSectionStatusSelector
-} from '@/shared/lib/accordion-sections/selectors';
+} from '@/shared/lib/accordion-sections/sections-selectors';
 import { AccordionSectionStatus } from '@/shared/lib/accordion-sections/section-status';
 
 const formSchema = z.object({

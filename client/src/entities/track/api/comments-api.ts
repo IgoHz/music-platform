@@ -1,7 +1,7 @@
 import api from '@/shared/api/api-wrapper';
 import { QueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
-import { TRACKS_CACHE_KEY } from '@/entities/tracks/general/model/cache-keys';
+import { TRACKS_CACHE_KEY } from '@/entities/track/model/cache-keys';
 import type { Comment } from '../model/comment';
 
 interface CreateCommentBody extends Omit<Comment, '_id'> {

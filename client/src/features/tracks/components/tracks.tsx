@@ -9,7 +9,7 @@ import {
   QueryClient
 } from '@tanstack/react-query';
 import TrackSearch from './tracks/track-search';
-import { getTracks, TRACKS_CACHE_KEY } from '@/entities/tracks/general';
+import { getTracks, TRACKS_CACHE_KEY } from '@/entities/track';
 
 interface Props {
   query?: string;

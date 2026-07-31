@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import { Track } from '@/entities/tracks/general';
+import { Track } from '@/entities/track/@x/player-store';
 import { PlayerStatus } from './player-status';
 
 export interface State {

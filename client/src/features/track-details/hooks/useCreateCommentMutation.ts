@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TRACKS_CACHE_KEY } from '@/entities/tracks/general/model/cache-keys';
-import { createComment } from '@/entities/tracks/track-comments';
-import { Track } from '@/entities/tracks/general';
+import { TRACKS_CACHE_KEY } from '@/entities/track/model/cache-keys';
+import { createComment } from '@/entities/track';
+import { Track } from '@/entities/track';
 
 export default function useCreateCommentMutation(id: string) {
   const queryClient = useQueryClient();

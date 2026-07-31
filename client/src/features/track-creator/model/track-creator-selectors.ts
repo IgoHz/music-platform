@@ -1,4 +1,4 @@
-import { State } from './store';
+import { State } from './track-creator-store';
 
 export const trackCreatorNameSelector = (state: State) => state.name;
 export const trackCreatorArtistSelector = (state: State) => state.artist;

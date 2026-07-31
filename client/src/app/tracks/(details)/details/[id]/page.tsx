@@ -1,7 +1,7 @@
 import { TrackDetails } from '@/features/track-details';
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/shared/lib/metadata/seo-utils';
-import { getTrackById } from '@/entities/tracks/general';
+import { getTrackById } from '@/entities/track';
 
 interface Props {
   params: Promise<{ id: string }>;

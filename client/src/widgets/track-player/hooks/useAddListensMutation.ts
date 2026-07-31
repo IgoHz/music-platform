@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { addListens, TRACKS_CACHE_KEY, Track } from '@/entities/tracks/general';
+import { addListens, TRACKS_CACHE_KEY, Track } from '@/entities/track';
 
 export default function useAddListensMutation(id: string) {
   const queryClient = useQueryClient();

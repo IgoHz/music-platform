@@ -2,6 +2,13 @@
 
 import { Button } from '@/shared/components/ui/button';
 import Icon from '@/shared/components/ui/icon';
+import { useEffect, useEffectEvent } from 'react';
+import { assertValue } from '@/shared/lib/assert';
+import { formatStaticResourcePath } from '@/shared/lib/static';
+import ServerImage from '@/shared/components/server-image';
+import TrackProgress from './track-player/track-progress';
+import Volume from './track-player/volume';
+import useAddListensMutation from '../hooks/useAddListensMutation';
 import {
   playerStatusSelector,
   playerTrackDurationSelector,
@@ -14,14 +21,7 @@ import {
   setPlayerVolumeSelector,
   useTrackPlayerStore,
   PlayerStatus
-} from '@/entities/tracks/track-player';
-import { useEffect, useEffectEvent } from 'react';
-import { assertValue } from '@/shared/lib/assert';
-import { formatStaticResourcePath } from '@/shared/lib/static';
-import ServerImage from '@/shared/components/server-image';
-import TrackProgress from './track-player/track-progress';
-import Volume from './track-player/volume';
-import useAddListensMutation from '../hooks/useAddListensMutation';
+} from '@/entities/player';
 
 let audio: HTMLAudioElement | undefined;
 
