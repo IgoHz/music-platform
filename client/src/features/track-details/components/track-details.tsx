@@ -6,7 +6,7 @@ import {
   HydrationBoundary,
   QueryClient
 } from '@tanstack/react-query';
-import { TRACKS_CACHE_KEY } from '@/entities/track';
+import { trackCacheKeys } from '@/entities/track';
 import ModalWrapper from '@/shared/components/modal-wrapper';
 import { getTrackById } from '@/entities/track';
 
@@ -19,7 +19,7 @@ export default async function TrackDetails({ id, type }: Props) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: [TRACKS_CACHE_KEY, id],
+    queryKey: trackCacheKeys.detail(id),
     queryFn: () => getTrackById(id),
     staleTime: 60 * 1000
   });

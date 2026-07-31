@@ -9,7 +9,7 @@ import {
   QueryClient
 } from '@tanstack/react-query';
 import TrackSearch from './tracks/track-search';
-import { getTracks, TRACKS_CACHE_KEY } from '@/entities/track';
+import { getTracks, trackCacheKeys } from '@/entities/track';
 
 interface Props {
   query?: string;
@@ -20,7 +20,7 @@ export default async function Tracks({ query, offset }: Props) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: [TRACKS_CACHE_KEY],
+    queryKey: trackCacheKeys.all(),
     queryFn: () => getTracks({ query, offset })
   });
 

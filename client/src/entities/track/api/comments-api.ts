@@ -1,7 +1,9 @@
+'use server';
+
 import api from '@/shared/api/api-wrapper';
 import { QueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
-import { TRACKS_CACHE_KEY } from '@/entities/track/model/cache-keys';
+import { trackCacheKeys } from '@/entities/track/model/cache-keys-factory';
 import type { Comment } from '../model/comment';
 
 interface CreateCommentBody extends Omit<Comment, '_id'> {
@@ -17,7 +19,7 @@ export async function createComment(body: CreateCommentBody) {
 
     const queryClient = new QueryClient();
     queryClient.invalidateQueries({
-      queryKey: [TRACKS_CACHE_KEY, body.trackId]
+      queryKey: trackCacheKeys.detail(body.trackId)
     });
 
     return response.data;

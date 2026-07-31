@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios';
 import { QueryClient } from '@tanstack/react-query';
 import type { Track } from '../model/track';
 import type { TracksData } from '../model/tracks-data';
-import { TRACKS_CACHE_KEY } from '../model/cache-keys';
+import { trackCacheKeys } from '../model/cache-keys-factory';
 
 interface GetTracksParams {
   query?: string;
@@ -47,7 +47,7 @@ export async function createTrack(formData: FormData) {
     );
 
     const queryClient = new QueryClient();
-    queryClient.invalidateQueries({ queryKey: [TRACKS_CACHE_KEY] });
+    queryClient.invalidateQueries({ queryKey: trackCacheKeys.all() });
 
     return response.data;
   } catch (e) {
@@ -61,7 +61,7 @@ export async function addListens(id: string) {
     await api.post<unknown, AxiosResponse<Track>>(`/tracks/listens/${id}`);
 
     const queryClient = new QueryClient();
-    queryClient.invalidateQueries({ queryKey: [TRACKS_CACHE_KEY, id] });
+    queryClient.invalidateQueries({ queryKey: trackCacheKeys.detail(id) });
   } catch (e) {
     console.error(e);
     throw e;
@@ -75,7 +75,7 @@ export async function deleteTrackById(id: string) {
     );
 
     const queryClient = new QueryClient();
-    queryClient.invalidateQueries({ queryKey: [TRACKS_CACHE_KEY] });
+    queryClient.invalidateQueries({ queryKey: trackCacheKeys.all() });
 
     return response.data;
   } catch (e) {
