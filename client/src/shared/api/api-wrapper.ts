@@ -1,7 +1,11 @@
-import axios from 'axios';
+async function apiFetch<T>(input: string, init?: RequestInit): Promise<T> {
+  const response = await fetch(`http://localhost:4000${input}`, init);
 
-const api = axios.create({
-  baseURL: 'http://localhost:4000'
-});
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
 
-export default api;
+  return response.json() as Promise<T>;
+}
+
+export default apiFetch;
