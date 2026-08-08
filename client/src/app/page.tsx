@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { buildPageMetadata } from '@/shared/lib/metadata/seo-utils';
 
@@ -9,5 +10,5 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function HomePage() {
-  return <div>Home page</div>;
+  redirect('/tracks');
 }

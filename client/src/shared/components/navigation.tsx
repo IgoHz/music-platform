@@ -12,10 +12,6 @@ import {
 
 const components: { title: string; href: string }[] = [
   {
-    title: 'Home',
-    href: '/'
-  },
-  {
     title: 'Tracks',
     href: '/tracks'
   }
