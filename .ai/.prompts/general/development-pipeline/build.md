@@ -4,9 +4,7 @@ Implement the approved implementation plan.
 
 The approved implementation plan is the source of truth.
 
-Follow the engineering philosophy defined in AGENTS.md and apply all relevant skills automatically.
-
-Do not reinterpret or restate engineering guidance already provided by AGENTS.md or applicable skills.
+Follow the engineering philosophy defined in AGENTS.md.
 
 Focus this prompt on disciplined execution.
 
@@ -199,17 +197,29 @@ Before finishing:
 - ensure no obvious TypeScript errors were introduced
 
 ────────────────────────────
-STOP CONDITION
+REQUIRED SKILLS
 ────────────────────────────
 
-After completing the current implementation step:
+This is an implementation session.
 
-Output exactly:
+The following skills are required for this Build phase:
 
-PHASE COMPLETE
+- execution-control
+- feature-development
+- incremental-development
+- project-consistency
 
-Do not:
+Load and apply these skills before implementation.
 
-- produce a new implementation plan
-- summarize future work
-- propose architectural redesigns
+Also load applicable technology and quality skills when required by the
+implementation, such as:
+
+- testing
+- debugging
+- refactoring
+- performance
+- React
+- Next.js
+- TypeScript
+
+Do not assume that mentioning a skill name means its contents are loaded.

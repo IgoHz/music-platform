@@ -2,85 +2,168 @@
 
 ## Goal
 
-Continue implementing the previously approved implementation plan from the current repository state.
+Continue the current implementation task from the existing execution state.
 
-Do not restart implementation.
+This is an execution continuation, not a new planning or repository-analysis phase.
 
-## Source of Truth
+## Primary objective
 
-Primary:
+Continue implementing the approved plan until:
 
-- current repository state
+- the feature is complete;
+- a genuine blocker requires user input;
+- an unrecoverable environment/tool problem prevents progress; or
+- the user explicitly asks you to stop.
 
-Secondary:
+Do NOT stop merely because:
 
-- approved implementation plan
+- the current implementation increment is complete;
+- a checkpoint has been reached;
+- validation was performed;
+- a problem was discovered;
+- a tool call failed;
+- additional repository inspection is needed;
+- you need to fix an implementation mistake;
+- you have summarized the current progress.
 
-Treat the repository as the authoritative record of implementation progress.
+A checkpoint is NOT a stop condition.
 
-Follow the engineering philosophy defined in AGENTS.md and apply all relevant skills automatically.
+## State reconstruction
 
-## Resume
+Before taking action, establish the minimum current state required to continue:
 
-Before making changes:
+1. Inspect the current repository state.
+2. Review the approved implementation plan.
+3. Identify which plan items are already implemented.
+4. Identify the current incomplete implementation increment.
+5. Identify the next concrete action.
+6. Verify important previous claims against the repository when necessary.
 
-- inspect the current repository state;
-- determine which implementation steps are already complete;
-- identify the next incomplete step;
-- continue from that point.
+Use the current repository state as the primary source of truth.
 
-If previous implementation differs from the original plan:
+Do not trust previous model claims about files, implementations, or completion status when the repository can verify them.
 
-- determine whether the repository intentionally evolved;
-- continue from the implemented state;
-- avoid undoing existing work unless it is incorrect.
+Do NOT repeat broad repository analysis if the existing state and plan already provide sufficient information.
 
-## Scope
+Only investigate additional areas when:
+- the current state contradicts previous findings;
+- the next implementation step requires information not yet established;
+- a validation failure requires investigation; or
+- a material implementation uncertainty has appeared.
 
-Continue only the remaining approved work.
+## Execution loop
 
-Do not:
+Continue using this loop autonomously:
 
-- repeat completed work;
-- restart previous phases;
-- create a new implementation plan;
-- redesign the architecture;
-- expand the feature scope.
+1. Select the smallest meaningful incomplete implementation increment.
+2. Inspect only the code and context required for that increment.
+3. Implement the increment.
+4. Validate the changed behavior.
+5. Fix issues discovered during validation.
+6. Update the internal execution state:
+   - completed work;
+   - current increment;
+   - remaining work;
+   - known issues;
+   - next action.
+7. If work remains, immediately continue with the next increment.
 
-Only revisit previously completed work if the repository reveals an actual implementation problem.
+Do not return control to the user between normal increments.
 
-## Implementation
+## Error recovery
 
-Continue incrementally.
+Recover from ordinary implementation and tool failures automatically.
 
-Keep changes:
+If a tool call fails:
 
-- focused;
-- reviewable;
-- consistent with the existing implementation;
-- consistent with the approved plan.
+1. Determine whether the failure is recoverable.
+2. Correct the command, path, arguments, or approach.
+3. Retry.
+4. Continue execution.
 
-If implementation differs from the original plan because of repository changes:
+Examples of recoverable failures:
 
-- explain the reason;
-- adapt accordingly;
-- minimize deviation.
+- wrong file path;
+- incorrect tool arguments;
+- failed search command;
+- missing import;
+- type error;
+- lint error;
+- test failure;
+- implementation mismatch;
+- incorrect assumption about an existing file.
+
+A recoverable failure is NOT a stop condition.
+
+If a failure reveals that an earlier implementation decision was incorrect:
+
+1. identify the root cause;
+2. repair the implementation;
+3. revalidate;
+4. continue.
+
+Stop only when the problem genuinely cannot be resolved without user input or external intervention.
+
+## Execution state
+
+Maintain a compact internal execution state throughout the build:
+
+### Execution State
+
+- Plan progress:
+  - completed:
+  - in progress:
+  - remaining:
+- Current increment:
+- Current issue:
+- Next action:
+- Validation status:
+- Blocking decision:
+
+Keep this state concise.
+
+Do not repeatedly reconstruct the entire repository or implementation history.
 
 ## Validation
 
-Before finishing, verify:
+Validate continuously, but treat validation as a checkpoint rather than a termination point.
 
-- newly added code integrates correctly;
-- existing functionality remains intact;
-- no obvious type errors were introduced;
-- completed implementation remains consistent.
+After an increment:
 
-## Output
+- run the narrowest relevant validation;
+- fix failures;
+- continue.
 
-### Completed Work
+At meaningful feature boundaries:
 
-### Remaining Work
+- run broader relevant validation;
+- fix failures;
+- continue.
 
-### Deviations From Plan (if any)
+Before declaring the overall task complete, perform the final validation required by the plan.
 
-### Validation Performed
+## Completion gate
+
+Do not declare completion until:
+
+- every required plan item is implemented;
+- affected imports and module wiring are valid;
+- relevant typechecking/linting/tests pass;
+- known implementation issues are resolved;
+- no required feature slice is still incomplete;
+- the final implementation is consistent with the repository patterns;
+- the final diff has been reviewed for unintended changes.
+
+If any completion criterion fails, continue implementation.
+
+## Stop conditions
+
+Stop only when one of these is true:
+
+1. The implementation is complete and passes the completion gate.
+2. A material ambiguity requires a user decision and cannot be resolved from repository evidence.
+3. An external dependency or environment problem genuinely prevents further progress.
+4. Continuing would require a destructive/risky action that requires user confirmation.
+5. The user explicitly asks you to stop.
+
+Otherwise, continue working.
