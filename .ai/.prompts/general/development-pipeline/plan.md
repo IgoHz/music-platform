@@ -14,6 +14,32 @@ Analyze the requested feature against the actual repository and produce a practi
 - Treat repository code as the source of truth for existing architecture and conventions.
 - Apply relevant skills, but do not skip mandatory repository analysis because of skill selection.
 
+## REQUIRED SKILLS
+
+This is a planning session.
+
+The following skills are required for the Plan phase:
+
+- repository-analysis
+- planning
+
+For non-trivial architectural or multi-module work, also load:
+
+- project-architecture
+- project-consistency
+
+Load when applicable:
+
+- technology-evaluation
+- api-design
+
+Load these skills with the skill tool before beginning repository research.
+
+Do not begin substantive repository research until the required skills
+have been successfully loaded.
+
+Do not assume that mentioning a skill name means its contents are loaded.
+
 ## Mandatory Research Phase
 
 Before writing the plan:
@@ -33,6 +59,23 @@ If the requested feature explicitly references an existing implementation as a m
 
 Do not stop repository research merely because enough information exists to write a plausible plan.
 Continue until the implementation approach can be justified by concrete repository evidence.
+
+## RESEARCH → PLANNING HANDOFF
+
+Before producing the implementation plan:
+
+1. Verify that the required Plan skills have been loaded.
+2. Verify that repository research completion criteria are satisfied.
+3. Synthesize the repository findings.
+4. Resolve material contradictions in research findings.
+5. Classify remaining unknowns as:
+   - resolvable by further repository inspection;
+   - user clarification required;
+   - non-blocking assumption.
+6. Re-load or confirm the `planning` skill is active.
+7. Only then construct the implementation plan.
+
+Do not produce the final plan directly from raw repository exploration.
 
 ## Clarification Gate
 
@@ -133,9 +176,31 @@ Before finalizing, verify that you have:
 - [ ] identified risks and ambiguities;
 - [ ] justified the implementation approach from repository evidence.
 
-────────────────────────────
-EXECUTION HANDOFF
-────────────────────────────
+## Research Delegation
+
+Use subagents for independent repository investigations when they provide
+meaningful parallelism.
+
+Avoid overlapping broad repository scans.
+
+Each research task must have:
+
+- a clearly bounded question;
+- a defined repository scope;
+- a concrete output;
+- no unnecessary full-file dumps.
+
+Prefer focused investigations such as:
+
+- affected feature/domain;
+- closest analogous implementation;
+- API/persistence path;
+- tests and validation;
+- architectural boundaries.
+
+Do not ask multiple subagents to rediscover the same repository structure.
+
+## EXECUTION HANDOFF
 
 The final implementation plan will be consumed by Build.
 
@@ -153,3 +218,4 @@ The plan should therefore use:
 
 Do not create or modify execution-state.md during Plan unless explicitly
 requested by the workflow.
+

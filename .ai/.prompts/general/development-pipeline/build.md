@@ -25,6 +25,34 @@ Do not:
 Only deviate from the approved plan if the actual repository state makes implementation impossible.
 
 ────────────────────────────
+REQUIRED SKILLS
+────────────────────────────
+
+This is an implementation session.
+
+The following skills are required for this Build phase:
+
+- execution-control
+- feature-development
+- incremental-development
+- project-consistency
+
+Load and apply these skills before implementation.
+
+Also load applicable technology and quality skills when required by the
+implementation, such as:
+
+- testing
+- debugging
+- refactoring
+- performance
+- React
+- Next.js
+- TypeScript
+
+Do not assume that mentioning a skill name means its contents are loaded.
+
+────────────────────────────
 EXECUTION MODEL
 ────────────────────────────
 
@@ -259,30 +287,3 @@ If the completion gate has not passed:
 - record the remaining work in execution-state.md;
 - continue with the next action.
 
-────────────────────────────
-REQUIRED SKILLS
-────────────────────────────
-
-This is an implementation session.
-
-The following skills are required for this Build phase:
-
-- execution-control
-- feature-development
-- incremental-development
-- project-consistency
-
-Load and apply these skills before implementation.
-
-Also load applicable technology and quality skills when required by the
-implementation, such as:
-
-- testing
-- debugging
-- refactoring
-- performance
-- React
-- Next.js
-- TypeScript
-
-Do not assume that mentioning a skill name means its contents are loaded.

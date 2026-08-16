@@ -4,6 +4,22 @@
 
 Review the implementation against the previously approved implementation plan.
 
+## REQUIRED SKILLS
+
+This is a Review phase.
+
+Required:
+
+- execution-control
+- code-review
+- project-consistency
+
+Load additional review/quality skills when applicable:
+
+- testing
+- performance
+- architecture-review
+
 ## Source of Truth
 
 Specification:
@@ -14,7 +30,7 @@ Implementation:
 
 - current repository state
 
-Follow AGENTS.md and all relevant review-related skills.
+Follow AGENTS.md.
 
 ## Instructions
 

@@ -14,7 +14,7 @@ Secondary:
 
 - current repository state
 
-Follow the engineering philosophy defined in AGENTS.md and apply all relevant skills automatically.
+Follow the engineering philosophy defined in AGENTS.md.
 
 ## Scope
 
@@ -102,3 +102,23 @@ Before finishing, verify:
 ### Remaining Issues (if any)
 
 ### Validation Performed
+
+## REQUIRED SKILLS
+
+This is a Fix phase.
+
+Required:
+
+- execution-control
+- debugging
+- feature-development
+
+Also load:
+
+- project-consistency
+- testing
+
+when applicable to the reported issue.
+
+Do not assume that mentioning a skill name means its contents are loaded.
+Load the required skills before making changes.

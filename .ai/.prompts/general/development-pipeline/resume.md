@@ -7,6 +7,17 @@ repository state.
 
 Assume that conversational context may be incomplete or unreliable.
 
+## REQUIRED SKILLS
+
+Before recovery:
+
+- execution-control
+- feature-development
+- incremental-development
+- project-consistency
+
+Load them before substantive recovery or implementation.
+
 ## Recovery Order
 
 1. Read `/.ai-memory/execution-state.md` if present.

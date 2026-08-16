@@ -7,6 +7,17 @@ is complete or a valid stop condition is reached.
 
 A previous model turn ending is not evidence of task completion.
 
+## REQUIRED SKILLS
+
+Before recovery:
+
+- execution-control
+- feature-development
+- incremental-development
+- project-consistency
+
+Load them before substantive recovery or implementation.
+
 ## Recovery Order
 
 Before making changes:
