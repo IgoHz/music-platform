@@ -132,3 +132,24 @@ Before finalizing, verify that you have:
 - [ ] identified reusable patterns;
 - [ ] identified risks and ambiguities;
 - [ ] justified the implementation approach from repository evidence.
+
+────────────────────────────
+EXECUTION HANDOFF
+────────────────────────────
+
+The final implementation plan will be consumed by Build.
+
+The plan must provide enough information for Build to initialize:
+
+/.ai-memory/execution-state.md
+
+Build will use that file to track implementation progress.
+
+The plan should therefore use:
+
+- stable step identifiers;
+- clear sequential ordering;
+- explicit validation for each major step.
+
+Do not create or modify execution-state.md during Plan unless explicitly
+requested by the workflow.

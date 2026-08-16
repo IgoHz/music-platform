@@ -78,6 +78,22 @@ Identify:
 - architectural risks;
 - future maintenance concerns.
 
+## Review Outcome
+
+If findings exist:
+
+- record them clearly;
+- return execution to Fix;
+- after fixes, run Review again.
+
+Review is complete only when:
+
+- no blocking findings remain;
+- no incomplete approved requirements remain;
+- the completion gate passes.
+
+A successful fix does not by itself mean the feature is complete.
+
 ## Summary
 
 Provide:

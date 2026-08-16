@@ -2,9 +2,37 @@
 
 ## Goal
 
-Continue the current implementation task from the existing execution state.
+Resume the interrupted implementation and continue until the approved scope
+is complete or a valid stop condition is reached.
 
-This is an execution continuation, not a new planning or repository-analysis phase.
+A previous model turn ending is not evidence of task completion.
+
+## Recovery Order
+
+Before making changes:
+
+1. Read `/.ai-memory/execution-state.md`.
+2. Inspect `git status` and the relevant diff.
+3. Inspect the current repository state.
+4. Compare repository state with execution-state.md.
+5. Compare both with the approved implementation plan.
+6. Identify the first incomplete or inconsistent increment.
+7. Update execution-state.md if necessary.
+8. Continue implementation.
+
+Repository state is authoritative over stale execution-state claims.
+
+## Continuation Rule
+
+Do not stop merely because:
+
+- the previous increment was completed;
+- the previous model turn ended;
+- a validation checkpoint was reached;
+- a recoverable tool error occurred;
+- additional in-scope work was discovered.
+
+Continue until a valid stop condition is reached.
 
 ## Primary objective
 

@@ -42,18 +42,51 @@ Your responsibility is execution.
 Do not revisit previously approved decisions unless the repository directly contradicts them.
 
 ────────────────────────────
-CURRENT STEP
+EXECUTION CHECKPOINT
 ────────────────────────────
 
-Implement only the current implementation step.
+Before implementation:
+
+1. Read /.ai-memory/execution-state.md if it exists.
+2. Inspect the current repository state.
+3. Inspect git status and relevant diff.
+4. Reconcile the execution checkpoint with the repository.
+5. Identify the next incomplete implementation increment.
+6. Update the checkpoint if it is missing or stale.
+7. Begin implementation.
+
+The repository is authoritative when it conflicts with the checkpoint.
+
+The checkpoint is authoritative for intended execution progress when the
+repository state alone cannot determine the next planned increment.
+
+If `/.ai-memory/execution-state.md` does not exist:
+
+- create it;
+- initialize it from the approved implementation plan;
+- mark the first incomplete implementation increment as current;
+- then begin implementation.
+
+────────────────────────────
+CURRENT INCREMENT
+────────────────────────────
+
+Implement the current implementation increment from the approved plan.
+
+The current increment is the immediate execution focus, not the boundary
+of the Build session.
 
 Do not:
 
-- anticipate future steps
-- revisit completed steps
-- implement additional functionality
+- anticipate unrelated future work;
+- revisit completed work without evidence;
+- expand the approved scope.
 
-Complete the current step before moving forward.
+Complete the current increment, validate it, update
+/.ai-memory/execution-state.md, and then continue with the next incomplete
+increment.
+
+Completing the current increment does not end Build execution.
 
 ────────────────────────────
 ACTION RULE
@@ -186,15 +219,45 @@ Keep changes:
 - low risk
 
 ────────────────────────────
-VALIDATION
+CONTINUE DECISION
 ────────────────────────────
 
-Before finishing:
+After each completed increment:
 
-- ensure the current step is complete
-- ensure no obvious integration issues were introduced
-- ensure new code is consistent with the surrounding code
-- ensure no obvious TypeScript errors were introduced
+Task complete?        YES / NO
+User input required?  YES / NO
+Confirmation required? YES / NO
+Environment blocked?  YES / NO
+Unrecoverable failure? YES / NO
+
+If all answers are NO:
+
+→ continue immediately.
+
+Do not return a completion summary at an intermediate checkpoint.
+
+────────────────────────────
+BUILD TERMINATION GATE
+────────────────────────────
+
+Build may terminate only when the completion gate defined in AGENTS.md
+has passed.
+
+Before terminating:
+
+- verify all approved plan requirements are implemented;
+- verify all implementation steps are complete;
+- verify affected imports and references resolve;
+- run applicable typecheck/lint/tests;
+- verify no known in-scope issues remain;
+- review the final diff for unintended changes;
+- update /.ai-memory/execution-state.md with state: completed.
+
+If the completion gate has not passed:
+
+- do not terminate;
+- record the remaining work in execution-state.md;
+- continue with the next action.
 
 ────────────────────────────
 REQUIRED SKILLS

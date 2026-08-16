@@ -2,15 +2,24 @@
 
 ## Goal
 
-Resume the interrupted implementation task.
+Recover an interrupted or stale implementation session from the current
+repository state.
 
-The previous execution did not necessarily terminate at a valid completion point.
+Assume that conversational context may be incomplete or unreliable.
 
-Your job is to reconstruct the minimum reliable execution state from the repository and approved plan, then continue implementation autonomously.
+## Recovery Order
 
-This is NOT a request to restart the task.
-This is NOT a request to create a new plan.
-This is NOT a request to perform broad repository analysis.
+1. Read `/.ai-memory/execution-state.md` if present.
+2. Inspect `git status`.
+3. Inspect the current diff.
+4. Inspect the approved implementation plan.
+5. Verify the execution checkpoint against the repository.
+6. Resolve discrepancies using repository evidence.
+7. Determine the next incomplete implementation increment.
+8. Rewrite stale execution-state.md if necessary.
+9. Continue implementation.
+
+Do not reconstruct the entire previous conversation when repository state and execution-state.md provide sufficient information.
 
 ## Primary objective
 

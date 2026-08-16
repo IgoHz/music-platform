@@ -30,6 +30,24 @@ Do not:
 
 Only reconsider a previous decision if the repository or review proves it to be incorrect.
 
+## Execution
+
+Fix all reported issues within the approved scope.
+
+For each issue:
+
+1. verify the current repository state;
+2. determine the root cause;
+3. implement the smallest appropriate fix;
+4. validate the fix;
+5. update `/.ai-memory/execution-state.md`.
+
+Do not stop after the first successful fix if additional reported issues
+remain.
+
+After all fixes are applied, return to Review rather than declaring the
+overall task complete.
+
 ## Analysis
 
 Before making changes:
