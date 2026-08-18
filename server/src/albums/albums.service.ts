@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Album, AlbumDocument } from './schemas/album.schema';
 import { Model, QueryFilter, type ObjectId } from 'mongoose';
 import { CreateAlbumDTO } from './dto/create-album.dto';
-import { FindAlbumDto } from './dto/find-album.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilesService } from 'src/files/files.service';
 import { FileType } from 'src/files/files.constants';
@@ -16,16 +15,18 @@ export class AlbumsService {
     private filesService: FilesService
   ) {}
 
-  async getAllAlbums(query?: FindAlbumDto) {
+  async getAllAlbums(count: number, offset: number, query: string) {
     const queryFilter: QueryFilter<Album> = {};
-    if (query?.name) {
-      queryFilter.name = { $regex: new RegExp(query.name, 'i') };
+    if (query) {
+      queryFilter.name = { $regex: new RegExp(query, 'i') };
     }
-    if (query?.artist) {
-      queryFilter.artist = { $regex: new RegExp(query.artist, 'i') };
-    }
-
-    return await this.albumRepository.find(queryFilter);
+    const [albums, totalCount] = await Promise.all([
+      this.albumRepository.find(queryFilter).skip(offset).limit(count),
+      this.albumRepository.countDocuments(queryFilter)
+    ]);
+    const pagesAmount = Math.ceil(totalCount / count);
+    const currentPage = Math.floor(offset / count) + 1;
+    return { albums, pages: pagesAmount, currentPage };
   }
 
   async getAlbumById(id: ObjectId) {

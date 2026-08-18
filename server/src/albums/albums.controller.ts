@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { AlbumsService } from './albums.service';
 import { CreateAlbumDTO } from './dto/create-album.dto';
-import { FindAlbumDto } from './dto/find-album.dto';
 import type { ObjectId } from 'mongoose';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { AttachTracksToAlbumDTO } from './dto/attach-tracks-to-album.dto';
@@ -22,8 +21,12 @@ export class AlbumsController {
   constructor(private service: AlbumsService) {}
 
   @Get()
-  async getAllAlbums(@Query() query?: FindAlbumDto) {
-    return await this.service.getAllAlbums(query);
+  async getAllAlbums(
+    @Query('count') count: number,
+    @Query('offset') offset: number,
+    @Query('query') query: string
+  ) {
+    return await this.service.getAllAlbums(count, offset, query);
   }
 
   @Get(':id')
