@@ -13,12 +13,28 @@ Required:
 - execution-control
 - code-review
 - project-consistency
+- mcp-usage
 
 Load additional review/quality skills when applicable:
 
 - testing
 - performance
 - architecture-review
+
+## REQUIRED MCPS
+
+Before reviewing, search the memory-engine MCP server for related decisions, bugs, and previous fixes. Use retrieved memories to identify regressions and consistency issues, but verify them against the current repository.
+
+## Review Scope
+
+Review the current repository state against:
+
+1. approved implementation plan;
+2. original requirements;
+3. current execution checkpoint.
+
+Do not reconstruct implementation history from the conversation unless
+needed to resolve an unexplained deviation.
 
 ## Source of Truth
 

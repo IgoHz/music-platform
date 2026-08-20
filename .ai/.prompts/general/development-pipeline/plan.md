@@ -27,6 +27,7 @@ For non-trivial architectural or multi-module work, also load:
 
 - project-architecture
 - project-consistency
+- mcp-usage
 
 Load when applicable:
 
@@ -39,6 +40,61 @@ Do not begin substantive repository research until the required skills
 have been successfully loaded.
 
 Do not assume that mentioning a skill name means its contents are loaded.
+
+## REQUIRED MCPS
+
+Before planning, search the memory-engine MCP server for relevant ADRs, decisions, bugs, and prior implementation context. Use the exact project name from config/projects.yaml. Do not modify code or memory files during planning.
+
+────────────────────────────
+MEMORY CONTEXT INITIALIZATION
+────────────────────────────
+
+For non-trivial tasks, before broad repository research:
+
+1. Resolve the memory-engine project identity from its project registry.
+2. Search the memory-engine for relevant architectural decisions,
+   constraints, previous implementation findings, and known issues.
+3. Use memory results only as historical/project context.
+4. Treat the current repository as authoritative for current implementation
+   state.
+5. Do not store transient research progress in the memory-engine.
+
+If the memory-engine is unavailable, continue only if the task can still
+be safely planned from the repository. Record that memory context was
+unavailable rather than repeatedly retrying it.
+
+────────────────────────────
+PLANNING EXECUTION LOOP
+────────────────────────────
+
+Planning is a continuous execution phase.
+
+A completed tool call, completed subagent investigation, answered research
+question, or intermediate research conclusion is NOT a stop condition.
+
+After each research increment:
+
+1. identify what has been established;
+2. identify remaining required research;
+3. identify contradictions or unknowns;
+4. select the next highest-value research increment;
+5. continue.
+
+Do not stop merely because a plausible implementation plan could already
+be written.
+
+The Plan phase may terminate only when ALL of the following are true:
+
+- mandatory skills are loaded;
+- required memory context has been initialized or explicitly marked
+  unavailable;
+- repository research completion criteria are satisfied;
+- material contradictions are resolved;
+- material unknowns are classified;
+- clarification requirements are resolved;
+- final research-to-plan consistency check is complete;
+- the final implementation plan has been produced.
+
 
 ## Mandatory Research Phase
 
@@ -76,6 +132,25 @@ Before producing the implementation plan:
 7. Only then construct the implementation plan.
 
 Do not produce the final plan directly from raw repository exploration.
+
+────────────────────────────
+RESEARCH → PLANNING HANDOFF
+────────────────────────────
+
+Before entering the final planning stage:
+
+1. Verify that repository-analysis completion criteria are satisfied.
+2. Synthesize repository findings.
+3. Resolve material contradictions.
+4. Classify remaining unknowns as:
+   - repository-resolvable;
+   - clarification-required;
+   - non-blocking assumption.
+5. Confirm that the planning skill is loaded.
+6. Perform the final research-to-plan consistency check.
+7. Only then construct the final implementation plan.
+
+Do not generate the final plan directly from raw subagent output.
 
 ## Clarification Gate
 
@@ -200,22 +275,72 @@ Prefer focused investigations such as:
 
 Do not ask multiple subagents to rediscover the same repository structure.
 
-## EXECUTION HANDOFF
+## Research Efficiency
+
+Prefer focused repository investigations over repeated broad scans.
+
+Before starting a research increment, define:
+
+- question;
+- target scope;
+- expected evidence.
+
+Once a research question is conclusively answered, mark it resolved.
+
+Do not re-investigate a resolved question unless later evidence contradicts
+the conclusion.
+
+Do not request complete file contents from subagents unless the complete
+file is specifically required.
+
+Prefer returning:
+
+- relevant paths;
+- exports;
+- structure;
+- important behavior;
+- dependencies;
+- conventions;
+- short exact snippets where necessary.
+
+Avoid returning complete files by default.
+
+Do not launch overlapping subagent investigations covering substantially
+the same question.
+
+────────────────────────────
+EXECUTION HANDOFF
+────────────────────────────
 
 The final implementation plan will be consumed by Build.
 
-The plan must provide enough information for Build to initialize:
-
-/.ai-memory/execution-state.md
-
-Build will use that file to track implementation progress.
-
-The plan should therefore use:
+The plan MUST use:
 
 - stable step identifiers;
 - clear sequential ordering;
+- explicit dependencies;
 - explicit validation for each major step.
 
-Do not create or modify execution-state.md during Plan unless explicitly
-requested by the workflow.
+The persistent checkpoint is:
+
+`.ai-memory/execution-state.md`
+
+The checkpoint is phase-aware.
+
+Plan may create or update this file with:
+
+`phase: planning`
+
+when the task is large enough that interruption/recovery is likely.
+
+Before handing work to Build, update it to:
+
+`phase: build-ready`
+
+Build will then take ownership of the implementation state.
+
+The checkpoint must remain compact and operational. It must contain enough
+information for a fresh continuation to identify the current phase,
+completed work, current work, next action, relevant files, and known
+blockers without reconstructing the previous conversation.
 

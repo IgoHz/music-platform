@@ -1,37 +1,65 @@
-# continue
+# Continue
 
 ## Goal
 
-Resume the interrupted implementation and continue until the approved scope
-is complete or a valid stop condition is reached.
+Continue the current workflow from the persistent execution checkpoint.
 
-A previous model turn ending is not evidence of task completion.
+Do not restart the workflow.
 
-## REQUIRED SKILLS
+Do not reconstruct previous conversational history.
 
-Before recovery:
+## Required Skills
+
+Load before substantive recovery:
 
 - execution-control
-- feature-development
 - incremental-development
+
+For Build recovery also load:
+
+- feature-development
 - project-consistency
 
-Load them before substantive recovery or implementation.
+Load technology/debugging/testing skills only when required by the current
+recovery action.
 
-## Recovery Order
+A skill is loaded only after a successful `skill` tool call.
 
-Before making changes:
+## Recovery Source of Truth
 
-1. Read `/.ai-memory/execution-state.md`.
-2. Inspect `git status` and the relevant diff.
-3. Inspect the current repository state.
-4. Compare repository state with execution-state.md.
-5. Compare both with the approved implementation plan.
-6. Identify the first incomplete or inconsistent increment.
-7. Update execution-state.md if necessary.
-8. Continue implementation.
+Use sources in this order:
 
-Repository state is authoritative over stale execution-state claims.
+1. `.ai-memory/execution-state.md`
+2. current repository state
+3. current git status/diff
+4. approved implementation plan
+5. targeted validation output
+6. memory-engine context
+7. previous conversation only when a required fact cannot be recovered
+   from the above
+
+Conversation history is not the primary recovery source.
+
+## Recovery Procedure
+
+Perform the minimum recovery necessary:
+
+1. read the execution checkpoint;
+2. inspect current git status/diff;
+3. inspect the current step's relevant files;
+4. identify the next concrete action;
+5. execute it.
+
+Do not:
+
+- reread the whole feature;
+- reconstruct previous implementation steps;
+- summarize the previous conversation;
+- repeat broad repository research;
+- revisit completed plan steps.
+
+If the checkpoint is insufficient, repair the checkpoint from repository
+evidence before continuing.
 
 ## Continuation Rule
 
@@ -85,6 +113,7 @@ Do not trust previous model claims about files, implementations, or completion s
 Do NOT repeat broad repository analysis if the existing state and plan already provide sufficient information.
 
 Only investigate additional areas when:
+
 - the current state contradicts previous findings;
 - the next implementation step requires information not yet established;
 - a validation failure requires investigation; or

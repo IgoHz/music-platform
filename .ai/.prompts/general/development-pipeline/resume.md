@@ -1,36 +1,47 @@
-# resume
+# Resume
 
 ## Goal
 
-Recover an interrupted or stale implementation session from the current
-repository state.
+Resume interrupted work from persistent repository state.
 
-Assume that conversational context may be incomplete or unreliable.
+Do not reconstruct the previous conversation unless a required fact cannot
+be recovered from persistent state and the repository.
 
-## REQUIRED SKILLS
+## Required Skills
 
-Before recovery:
+Load:
 
 - execution-control
-- feature-development
 - incremental-development
+
+For Build:
+- feature-development
 - project-consistency
 
-Load them before substantive recovery or implementation.
+## Recovery Sources
 
-## Recovery Order
+Use in this order:
 
-1. Read `/.ai-memory/execution-state.md` if present.
-2. Inspect `git status`.
-3. Inspect the current diff.
-4. Inspect the approved implementation plan.
-5. Verify the execution checkpoint against the repository.
-6. Resolve discrepancies using repository evidence.
-7. Determine the next incomplete implementation increment.
-8. Rewrite stale execution-state.md if necessary.
-9. Continue implementation.
+1. `.ai-memory/execution-state.md`
+2. current repository state
+3. git status/diff
+4. approved plan
+5. targeted validation
+6. memory-engine
+7. conversation history only as a last resort
 
-Do not reconstruct the entire previous conversation when repository state and execution-state.md provide sufficient information.
+## Recovery Rule
+
+If persistent state and repository state agree, continue immediately.
+
+Do not perform broad repository exploration.
+
+If they disagree:
+
+1. inspect the affected files;
+2. establish current repository truth;
+3. update execution-state.md;
+4. continue from the verified state.
 
 ## Primary objective
 

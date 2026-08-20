@@ -16,6 +16,45 @@ Secondary:
 
 Follow the engineering philosophy defined in AGENTS.md.
 
+## Required Skills
+
+Mandatory:
+
+- execution-control
+- debugging
+- feature-development
+- incremental-development
+- project-consistency
+
+Conditional:
+
+- testing
+- technology-specific skills
+- architecture
+- performance
+- api-design
+
+Load mandatory skills before investigation or modification.
+
+A skill is loaded only after a successful `skill` tool call.
+
+## Recovery Scope
+
+Fix only the identified problem.
+
+Do not reconstruct the entire feature.
+
+Use:
+
+1. current repository state;
+2. current validation output;
+3. execution checkpoint;
+4. approved plan;
+5. relevant memory-engine context.
+
+Do not use conversation history as the primary source of implementation
+state.
+
 ## Scope
 
 Fix only the reported issues.
@@ -40,7 +79,7 @@ For each issue:
 2. determine the root cause;
 3. implement the smallest appropriate fix;
 4. validate the fix;
-5. update `/.ai-memory/execution-state.md`.
+5. update `.ai-memory/execution-state.md`.
 
 Do not stop after the first successful fix if additional reported issues
 remain.
@@ -103,22 +142,3 @@ Before finishing, verify:
 
 ### Validation Performed
 
-## REQUIRED SKILLS
-
-This is a Fix phase.
-
-Required:
-
-- execution-control
-- debugging
-- feature-development
-
-Also load:
-
-- project-consistency
-- testing
-
-when applicable to the reported issue.
-
-Do not assume that mentioning a skill name means its contents are loaded.
-Load the required skills before making changes.

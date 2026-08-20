@@ -9,22 +9,6 @@ Follow the engineering philosophy defined in AGENTS.md.
 Focus this prompt on disciplined execution.
 
 ────────────────────────────
-SCOPE
-────────────────────────────
-
-Implement only the approved scope.
-
-Do not:
-
-- redefine requirements
-- create a new implementation plan
-- redesign the architecture
-- expand the feature scope
-- perform unrelated refactoring
-
-Only deviate from the approved plan if the actual repository state makes implementation impossible.
-
-────────────────────────────
 REQUIRED SKILLS
 ────────────────────────────
 
@@ -36,6 +20,7 @@ The following skills are required for this Build phase:
 - feature-development
 - incremental-development
 - project-consistency
+- mcp-usage
 
 Load and apply these skills before implementation.
 
@@ -51,6 +36,28 @@ implementation, such as:
 - TypeScript
 
 Do not assume that mentioning a skill name means its contents are loaded.
+
+────────────────────────────
+REQUIRED MCPS
+────────────────────────────
+
+Before implementing a non-trivial change, search the memory-engine MCP server for relevant project context. After completing a durable architectural decision or important fix, store a concise memory with memory_store. Do not store transient progress or secrets.
+
+────────────────────────────
+SCOPE
+────────────────────────────
+
+Implement only the approved scope.
+
+Do not:
+
+- redefine requirements
+- create a new implementation plan
+- redesign the architecture
+- expand the feature scope
+- perform unrelated refactoring
+
+Only deviate from the approved plan if the actual repository state makes implementation impossible.
 
 ────────────────────────────
 EXECUTION MODEL
@@ -75,7 +82,7 @@ EXECUTION CHECKPOINT
 
 Before implementation:
 
-1. Read /.ai-memory/execution-state.md if it exists.
+1. Read .ai-memory/execution-state.md if it exists.
 2. Inspect the current repository state.
 3. Inspect git status and relevant diff.
 4. Reconcile the execution checkpoint with the repository.
@@ -88,12 +95,29 @@ The repository is authoritative when it conflicts with the checkpoint.
 The checkpoint is authoritative for intended execution progress when the
 repository state alone cannot determine the next planned increment.
 
-If `/.ai-memory/execution-state.md` does not exist:
+If `.ai-memory/execution-state.md` does not exist:
 
 - create it;
 - initialize it from the approved implementation plan;
 - mark the first incomplete implementation increment as current;
 - then begin implementation.
+
+────────────────────────────
+EXECUTION CHECKPOINT
+────────────────────────────
+
+Before implementation:
+
+1. Resolve the project execution root.
+2. Read `.ai-memory/execution-state.md` if it exists.
+3. Read the approved implementation plan.
+4. Inspect current git status/diff.
+5. Determine the next incomplete plan step.
+6. Inspect only the files relevant to that step.
+7. Update the checkpoint before making substantial changes.
+
+Do not reconstruct implementation progress from conversation history when
+the checkpoint and repository provide the required information.
 
 ────────────────────────────
 CURRENT INCREMENT
@@ -111,7 +135,7 @@ Do not:
 - expand the approved scope.
 
 Complete the current increment, validate it, update
-/.ai-memory/execution-state.md, and then continue with the next incomplete
+.ai-memory/execution-state.md, and then continue with the next incomplete
 increment.
 
 Completing the current increment does not end Build execution.
@@ -247,15 +271,42 @@ Keep changes:
 - low risk
 
 ────────────────────────────
+CONTINUATION LOOP
+────────────────────────────
+
+After completing an implementation increment:
+
+1. validate the increment;
+2. update `.ai-memory/execution-state.md`;
+3. determine whether approved work remains;
+4. if work remains, immediately continue with the next increment.
+
+A checkpoint is not a stop condition.
+
+Do not stop merely because:
+
+- one file was completed;
+- one step was completed;
+- validation passed for one increment;
+- a short progress summary could be written.
+
+Stop only when:
+
+- the approved implementation is complete;
+- a genuine blocker requires user input;
+- the repository contradicts the approved plan in a material way;
+- explicit user interruption occurs.
+
+────────────────────────────
 CONTINUE DECISION
 ────────────────────────────
 
 After each completed increment:
 
-Task complete?        YES / NO
-User input required?  YES / NO
+Task complete? YES / NO
+User input required? YES / NO
 Confirmation required? YES / NO
-Environment blocked?  YES / NO
+Environment blocked? YES / NO
 Unrecoverable failure? YES / NO
 
 If all answers are NO:
@@ -279,11 +330,10 @@ Before terminating:
 - run applicable typecheck/lint/tests;
 - verify no known in-scope issues remain;
 - review the final diff for unintended changes;
-- update /.ai-memory/execution-state.md with state: completed.
+- update .ai-memory/execution-state.md with state: completed.
 
 If the completion gate has not passed:
 
 - do not terminate;
 - record the remaining work in execution-state.md;
 - continue with the next action.
-
